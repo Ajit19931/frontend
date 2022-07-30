@@ -14,7 +14,7 @@ import Login from "./Auth/Login";
 import Register from "./Auth/Register";
 import ForgotPassword from "./Auth/ForgotPassword";
 import ResetPassword from "./Auth/ResetPassword";
-// import Error from "./component/Error";
+import Error from "./component/Error";
 import ProductDetails from "./component/ProductDetails";
 import Products from "./Product/Products";
 import store from "./store";
@@ -44,6 +44,9 @@ import NewProduct from "./Admin/NewProduct";
 import UpdateProduct from "./Admin/UpdateProducts";
 import OrderList from "./Admin/OrderList";
 import UpdateOrdersList from "./Admin/UpdateOrdersList";
+import UserList from "./Admin/UserList";
+import UserDetails from "./Admin/UserDetails";
+import ProductReviews from "./Admin/ProductReviews.js";
 
 function App() {
 
@@ -83,7 +86,7 @@ function App() {
         <Route path="/products/:keyword" element={<Products />} />
         <Route path="/cart" element={<Cart />} />
 
-        {/* <Route exact path="*" element={<Error />} /> */}
+        <Route exact path="*" element={<Error />} />
 
 
         <Route element={<ProtectedRoute />}>
@@ -94,6 +97,7 @@ function App() {
           <Route path="/success" element={<OrderSuccess />} />
           <Route exact path="/orders" element={<MyOrders />} />
           <Route exact path="/order/:id" element={<OrderDetails />} />
+          <Route exact path="*" element={<Error />} />
         </Route>
 
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} adminRoute={true} isAdmin={user && user.role === "admin" ? true : false} />}>
@@ -105,6 +109,10 @@ function App() {
 
           <Route exact path='/admin/orders' element={<OrderList />} />
           <Route exact path='/admin/order/:id' element={<UpdateOrdersList />} />
+          <Route exact path='/admin/userlist' element={<UserList />} />
+          <Route exact path='/admin/user/:id' element={<UserDetails />} />
+          <Route exact path='/admin/reviews' element={<ProductReviews />} />
+          <Route exact path="*" element={<Error />} />
         </Route>
         {/* <Route
           path="/admin/dashboard"
@@ -121,7 +129,11 @@ function App() {
           </Route>
         </Elements>)} */}
 
-
+        {/* <Route
+          element={
+            window.location.pathname === "/process/payment" ? null : <Error />
+          }
+        /> */}
 
       </Routes>
 

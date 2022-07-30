@@ -45,8 +45,8 @@ const AdminSidebar = () => {
               </div>
             </div>
             <Link to="/admin/orders" className="nav-item nav-link"><i className="fa fa-shopping-bag me-2"></i>Orders</Link>
-            <Link to="/admin/dashboard" className="nav-item nav-link"><i className="fa fa-keyboard me-2"></i>Forms</Link>
-            <Link to="table.html" className="nav-item nav-link"><i className="fa fa-table me-2"></i>Tables</Link>
+            <Link to="/admin/reviews" className="nav-item nav-link"><i class="fas fa-comments me-2"></i>Reviews</Link>
+            
               </div>
         </nav>
       </div>

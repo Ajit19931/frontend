@@ -5767,10 +5767,12 @@ tbody tr td:last-child {
 .thumb-slider .swiper-slide img {
     width: 100%;
     border-radius: 8px;
-    border: 1px solid var(--border)
+    border: 1px solid var(--border);
+    background: #fff;
+    padding: 10px;
 }
 
-.thumb-slider .slick-center img {
+.thumb-slider .swiper-slide-thumb-active img {
     border: 1px solid var(--primary)
 }
 

@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import AdminHeader from './AdminHeader';
 import AdminFooter from './AdminFooter';
-import {getAdminProduct } from '../actions/productActions';
+import { getAdminProduct } from '../actions/productActions';
 import { useSelector, useDispatch } from 'react-redux';
 import { Doughnut, Line } from "react-chartjs-2";
 import { Chart, registerables } from 'chart.js';
 import { getAllOrders } from '../actions/orderActions';
+import { getAllUsers } from '../actions/userAction';
 Chart.register(...registerables);
 
 
@@ -13,22 +14,24 @@ Chart.register(...registerables);
 const Dashboard = () => {
 
     const dispatch = useDispatch();
-    const {products } = useSelector((state) => state.products);
-    const {orders } = useSelector((state) => state.allOrders);
- 
+    const { products } = useSelector((state) => state.products);
+    const { orders } = useSelector((state) => state.allOrders);
+    const { users } = useSelector((state) => state.allUsers);
+
 
     let outofStock = 0;
 
     products && products.forEach((item) => {
-      if(item.stock === 0){
-        outofStock += 1;
-      }
+        if (item.stock === 0) {
+            outofStock += 1;
+        }
     });
 
     useEffect(() => {
-        
+
         dispatch(getAdminProduct());
         dispatch(getAllOrders());
+        dispatch(getAllUsers());
 
     }, [dispatch]);
 
@@ -46,9 +49,9 @@ const Dashboard = () => {
     const doughnutState = {
         labels: ["Out Of Stock", "InStock"],
         datasets: [{
-            backgroundColor: ["#11b76b" ,"#119744"],
-            hoverBackgroundColor: ["#119744" ,"#11b76b"],
-            data: [outofStock ,products.length-outofStock ],
+            backgroundColor: ["#11b76b", "#119744"],
+            hoverBackgroundColor: ["#119744", "#11b76b"],
+            data: [outofStock, products.length - outofStock],
         },
         ]
     }
@@ -92,7 +95,7 @@ const Dashboard = () => {
                                 <i className="fas fa-user fa-3x text-primary"></i>
                                 <div className="ms-3 text-center">
                                     <p className="mb-2">Total Users</p>
-                                    <h4 className="mb-0">$1234</h4>
+                                    <h4 className="mb-0">{users && users.length}</h4>
                                 </div>
                             </div>
                         </div>
