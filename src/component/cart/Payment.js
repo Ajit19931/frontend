@@ -1,7 +1,7 @@
-import React, {  useRef , useEffect} from "react";
+import React, { useRef, useEffect } from "react";
 import MetaData from "../MetaData";
-import { useSelector ,useDispatch  } from "react-redux";
-import {  useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 import CheckoutSteps from "../cart/CheckoutSteps";
 import { toast } from 'react-toastify';
 
@@ -20,7 +20,7 @@ const Payment = () => {
     const elements = useElements();
     const payBtn = useRef(null);
 
-    const { shippingInfo , cartItems} = useSelector((state) => state.cart);
+    const { shippingInfo, cartItems } = useSelector((state) => state.cart);
     const { user } = useSelector((state) => state.user);
     const { error } = useSelector((state) => state.newOrder);
 
@@ -84,8 +84,9 @@ const Payment = () => {
                     order.paymentInfo = {
                         id: result.paymentIntent.id,
                         status: result.paymentIntent.status,
-                    };
 
+                    };
+                  localStorage.removeItem("cartItems");
                     dispatch(createOrder(order));
 
                     navigate("/success");
@@ -129,8 +130,8 @@ const Payment = () => {
                                                             <div className="form-group ">
                                                                 <label className="form-label">Card No</label>
                                                                 <div className="paymentForm">
-                                                                <CreditCardIcon />
-                                                                <CardNumberElement className="paymentInput" />
+                                                                    <CreditCardIcon />
+                                                                    <CardNumberElement className="paymentInput" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -139,8 +140,8 @@ const Payment = () => {
                                                             <div className="form-group">
                                                                 <label className="form-label">Card Expire Date</label>
                                                                 <div className="paymentForm">
-                                                                <EventIcon />
-                                                                <CardExpiryElement className="paymentInput" />
+                                                                    <EventIcon />
+                                                                    <CardExpiryElement className="paymentInput" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -148,9 +149,9 @@ const Payment = () => {
                                                             <div className="form-group">
                                                                 <label className="form-label">Card CVV</label>
                                                                 <div className="paymentForm">
-                                                                <VpnKeyIcon />
-                                                                <CardCvcElement className="paymentInput" />
-                                                            </div>
+                                                                    <VpnKeyIcon />
+                                                                    <CardCvcElement className="paymentInput" />
+                                                                </div>
                                                             </div>
                                                         </div>
 

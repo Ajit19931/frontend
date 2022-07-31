@@ -55,7 +55,7 @@ const Login = () => {
 					<section className="user-form-part">
 						<div className="container">
 							<div className="row justify-content-center ">
-								<div className="col-12 col-sm-10 col-md-12 col-lg-12 col-xl-10">
+								<div className="col-12 col-sm-6 col-md-12 col-lg-12 col-xl-5">
 									<div className="user-form-logo">
 										<Link to="/"><img src={require('../assets/images/logo.png')} alt="logo" /></Link>
 									</div>
@@ -65,7 +65,7 @@ const Login = () => {
 											<p>Use your credentials to access</p>
 										</div>
 										<div className="user-form-group">
-											<ul className="user-form-social">
+											{/* <ul className="user-form-social">
 												<li><Link to="/" className="facebook"><i className="fab fa-facebook-f"></i>login with facebook</Link></li>
 												<li><Link to="/" className="twitter"><i className="fab fa-twitter"></i>login with twitter</Link></li>
 												<li><Link to="/" className="google"><i className="fab fa-google"></i>login with google</Link></li>
@@ -73,7 +73,7 @@ const Login = () => {
 											</ul>
 											<div className="user-form-divider">
 												<p>or</p>
-											</div>
+											</div> */}
 											<form className="user-form" onSubmit={submitHandler}>
 												<div className="form-group">
 													<input type="email" className="form-control" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} placeholder="Enter your email" />

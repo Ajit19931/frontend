@@ -27,7 +27,7 @@ import Shipping from "./component/cart/Shipping";
 import ConfirmOrder from "./component/order/ConfirmOrder.js";
 import Payment from "./component/cart/Payment.js";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route  } from "react-router-dom";
 import axios from "axios";
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
@@ -64,6 +64,7 @@ function App() {
     getStripeApiKey();
   }, []);
 
+  
 
 
   return (
@@ -72,6 +73,15 @@ function App() {
       {user && user.role === 'admin' ? (<AdminSidebar />) : (<><Header /> <Navbar /></>)}
       {/* {window.pathname!=='/login' ? (<><Header /> <Navbar /></>) :""}  */}
 
+   {stripeApiKey && 
+    <Elements stripe={loadStripe(stripeApiKey)}>
+    <Routes>
+      <Route exact path="/process/payment" element={<ProtectedRoute />}>
+        <Route exact path="/process/payment" element={<Payment />} />
+      </Route>
+    </Routes>
+  </Elements>
+   }  
 
       <Routes>
 
@@ -97,7 +107,8 @@ function App() {
           <Route path="/success" element={<OrderSuccess />} />
           <Route exact path="/orders" element={<MyOrders />} />
           <Route exact path="/order/:id" element={<OrderDetails />} />
-          <Route exact path="*" element={<Error />} />
+         
+          
         </Route>
 
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} adminRoute={true} isAdmin={user && user.role === "admin" ? true : false} />}>
@@ -112,38 +123,18 @@ function App() {
           <Route exact path='/admin/userlist' element={<UserList />} />
           <Route exact path='/admin/user/:id' element={<UserDetails />} />
           <Route exact path='/admin/reviews' element={<ProductReviews />} />
-          <Route exact path="*" element={<Error />} />
+         
         </Route>
-        {/* <Route
-          path="/admin/dashboard"
-          element={
-            <ProtectedRoute isAuthenticated={isAuthenticated} adminRoute={true} >
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        /> */}
 
-        {/* {stripeApiKey && (<Elements stripe={loadStripe(stripeApiKey)}>
-          <Route element={<ProtectedRoute />}>
-            <Route path="/process/payment" element={<Payment />} />
-          </Route>
-        </Elements>)} */}
-
-        {/* <Route
-          element={
-            window.location.pathname === "/process/payment" ? null : <Error />
-          }
-        /> */}
+        {/* {
+            window.location.pathname === "/process/payment" ? null : <Route exact path="*" element={ <Error /> } /> 
+          } */}
+       
+         <Route  element={window.location.pathname === "/process/payment" ? "" : <Error /> } />
 
       </Routes>
 
-      <Elements stripe={loadStripe(stripeApiKey)}>
-        <Routes>
-          <Route exact path="/process/payment" element={<ProtectedRoute />}>
-            <Route exact path="/process/payment" element={<Payment />} />
-          </Route>
-        </Routes>
-      </Elements>
+      
 
 
       {user && user.role === 'admin' ? "" : (<Footer />)}
