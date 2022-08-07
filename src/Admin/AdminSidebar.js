@@ -11,7 +11,7 @@ const AdminSidebar = () => {
     <>
       <div className="sidebar shadow-md pb-3">
         <nav className="navbar bg-light navbar-light">
-          <Link to="index.html" className="navbar-brand mx-4 mb-3">
+          <Link to="/" className="navbar-brand mx-4 mb-3">
             <img src={require('../assets/images/logo.png')} alt="logo" width="100%" />
          </Link>
           <div className="d-flex align-items-center ms-4 mb-4">
@@ -26,6 +26,15 @@ const AdminSidebar = () => {
           </div>
           <div className="navbar-nav w-100">
             <Link to="/admin/dashboard" className="nav-item nav-link active"><i className="fa fa-tachometer-alt me-2"></i>Dashboard</Link>
+          
+            <div className="nav-item dropdown">
+              <Link to="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i className="fa fa-laptop me-2"></i>Slider</Link>
+              <div className="dropdown-menu bg-transparent border-0">
+                <Link to="/admin/slider" className="dropdown-item">Add Slider</Link>
+                <Link to="/admin/sliderlist" className="dropdown-item">All Slider</Link>
+               
+              </div>
+            </div>
             <Link to="/admin/userlist" className="nav-item nav-link "><i className="fas fa-user me-2"></i>User</Link>
             
             <div className="nav-item dropdown">
@@ -39,8 +48,8 @@ const AdminSidebar = () => {
             <div className="nav-item dropdown">
               <Link to="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i className="fa fa-th me-2"></i>Category</Link>
               <div className="dropdown-menu bg-transparent border-0">
-                <Link to="/admin/dashboard" className="dropdown-item">Add Category</Link>
-                <Link to="/admin/dashboard" className="dropdown-item">All Category</Link>
+                <Link to="/admin/addcategories" className="dropdown-item">Add Category</Link>
+                <Link to="/admin/categorieslist" className="dropdown-item">All Category</Link>
                
               </div>
             </div>

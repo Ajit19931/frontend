@@ -92,12 +92,12 @@ const Login = () => {
 											</form>
 										</div>
 									</div>
-									<div className="user-form-remind">
+									<div className="user-form-remind mb-5">
 										<p>Don't have any account?<Link to="/register">register here</Link></p>
 									</div>
-									<div className="user-form-footer">
+									{/* <div className="user-form-footer">
 										<p>Greeny | &COPY; Copyright by <Link to="/">Ajit</Link></p>
-									</div>
+									</div> */}
 								</div>
 							</div>
 						</div>

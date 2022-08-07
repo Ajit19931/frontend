@@ -1,11 +1,15 @@
-import React, { useEffect } from 'react'
-import ProductCard from './Home/productCard.js';
+import React from 'react'
+// import ProductCard from './Home/productCard.js';
 import MetaData from '../component/MetaData.js';
-import { getProduct, clearErrors } from "../actions/productActions";
-import { useSelector, useDispatch } from "react-redux";
-import Loader from "../component/Loading";
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+
+import { useSelector } from "react-redux";
+// import Loader from "../component/Loading";
+
+import { Link, useNavigate } from 'react-router-dom';
+import HomeSlider from "./HomeSlider.js";
+import DealSlider from './DealSlider/DealSlider.jsx';
+import HomeCategory from './Home/HomeCategory.js';
+import HomeProductSlider from './Home/HomeProductSlider';
 
 
 
@@ -13,30 +17,38 @@ import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
 
-   const { loading, error, products } = useSelector((state) => state.products);
-   const { user  } = useSelector((state) => state.user);
-   const dispatch = useDispatch();
+   const { user } = useSelector((state) => state.user);
+
+ 
    const navigate = useNavigate();
-   useEffect(() => {
-      if (error) {
-         toast.error(error);
-         dispatch(clearErrors());
-      }
-      dispatch(getProduct());
+  
 
-   }, [dispatch, error]);
-
-   if(user && user.role === 'admin'){
-			navigate("/admin/dashboard");
-		}
+   if (user && user.role === 'admin') {
+      navigate("/admin/dashboard");
+   }
 
    return (
       <>
-         {loading ? (<Loader />) :
-            (<>
-               <MetaData tittle="Ecommerce | Home " />
+         {/* {loading ? (<Loader />) :
+            (<> */}
+               <MetaData title="Online Shopping Site for Mobiles, Electronics, Furniture, Grocery, Lifestyle, Books & More. Best Offers!" />
+               <HomeSlider />
+               <HomeCategory />
+               <HomeProductSlider title={"Suggested for You"} />
+               <DealSlider title={"Discounts for You"} />
 
-               <section className="section recent-part mt-5">
+               <div className="section promo-part">
+                  <div className="container-fluid">
+                     <div className="row">
+                        <div className="col-lg-12">
+                           <div className="promo-img">
+                              <Link to="/products">
+                                 <img src={require('../assets/images/promo/home/03.jpg')} alt="promo" /></Link>
+                           </div>
+                        </div></div></div></div>
+                        <HomeProductSlider title={"You May Also Like..."} />
+
+               {/* <section className="section recent-part mt-5">
                   <div className="container">
                      <div className="row">
                         <div className="col-lg-12">
@@ -54,8 +66,10 @@ const Home = () => {
 
                      </div>
                   </div>
-               </section>
-            </>)}
+               </section> */}
+
+               <DealSlider title={"Top Brands, Best Price"} />
+            {/* </>)} */}
       </>
    )
 }

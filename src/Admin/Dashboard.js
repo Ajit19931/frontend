@@ -35,13 +35,19 @@ const Dashboard = () => {
 
     }, [dispatch]);
 
+    let totalAmount = 0;
+    orders &&
+      orders.forEach((item) => {
+        totalAmount += item.totalPrice;
+      });
+
     const lineState = {
         labels: ["Amount", "Amt Earned"],
         datasets: [{
             label: "Total Amount",
             backgroundColor: ["#119744"],
             hoverBackgroundColor: ["#11b76b"],
-            data: [0, 4000],
+            data: [0, totalAmount],
         },
         ]
     }
@@ -68,7 +74,7 @@ const Dashboard = () => {
                                 <i className="fa fa-chart-bar fa-3x text-primary"></i>
                                 <div className="ms-3 text-center">
                                     <p className="mb-2">Total Sale</p>
-                                    <h4 className="mb-0">$1234</h4>
+                                    <h4 className="mb-0">₹{totalAmount}</h4>
                                 </div>
                             </div>
                         </div>

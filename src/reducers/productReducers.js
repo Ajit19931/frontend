@@ -25,6 +25,9 @@ import {
     UPDATE_PRODUCT_REQUEST,
     UPDATE_PRODUCT_SUCCESS,
     UPDATE_PRODUCT_RESET,
+    SLIDER_PRODUCTS_FAIL,
+    SLIDER_PRODUCTS_REQUEST,
+    SLIDER_PRODUCTS_SUCCESS,
 
     ALL_REVIEW_REQUEST,
     ALL_REVIEW_SUCCESS,
@@ -46,6 +49,7 @@ export const productsReducer = (state = { products: [] }, action) => {
     switch (action.type) {
         case ALL_PRODUCT_REQUEST:
         case ADMIN_PRODUCT_REQUEST:
+            case SLIDER_PRODUCTS_REQUEST:
             return {
                 loading: true,
                 products: [],
@@ -59,12 +63,14 @@ export const productsReducer = (state = { products: [] }, action) => {
                 filteredProductsCount: action.payload.filteredProductsCount,
             };
         case ADMIN_PRODUCT_SUCCESS:
+            case SLIDER_PRODUCTS_SUCCESS:
             return {
                 loading: false,
                 products: action.payload,
             };
         case ALL_PRODUCT_FAIL:
         case ADMIN_PRODUCT_FAIL:
+            case SLIDER_PRODUCTS_FAIL:
             return {
                 loading: false,
                 error: action.payload,
@@ -196,7 +202,7 @@ export const newProductReducer = (state = { product: {} }, action) => {
 }
 
 
-// Admin Delete Product 
+// Admin Delete and Update Product 
 export const deleteProductReducer = (state = {}, action) => {
 
     switch (action.type) {
@@ -262,47 +268,47 @@ export const deleteProductReducer = (state = {}, action) => {
 
 
 // Admin Delete Product 
-export const updateProductReducer = (state = {}, action) => {
+// export const updateProductReducer = (state = {}, action) => {
 
-    switch (action.type) {
-        case UPDATE_PRODUCT_REQUEST:
-            return {
-                ...state,
-                loading: true,
+//     switch (action.type) {
+//         case UPDATE_PRODUCT_REQUEST:
+//             return {
+//                 ...state,
+//                 loading: true,
 
-            };
-        case UPDATE_PRODUCT_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                isUPDATEd: action.payload,
+//             };
+//         case UPDATE_PRODUCT_SUCCESS:
+//             return {
+//                 ...state,
+//                 loading: false,
+//                 isUPDATEd: action.payload,
 
 
-            };
-        case UPDATE_PRODUCT_RESET:
+//             };
+//         case UPDATE_PRODUCT_RESET:
 
-            return {
-                ...state,
-                isUPDATEd: false,
-            };
-        case UPDATE_PRODUCT_FAIL:
+//             return {
+//                 ...state,
+//                 isUPDATEd: false,
+//             };
+//         case UPDATE_PRODUCT_FAIL:
 
-            return {
-                ...state,
-                loading: false,
-                error: action.payload,
-            };
+//             return {
+//                 ...state,
+//                 loading: false,
+//                 error: action.payload,
+//             };
 
-        case CLEAR_ERRORS:
-            return {
-                ...state,
-                error: null,
-            };
-        default:
-            return state;
-    }
+//         case CLEAR_ERRORS:
+//             return {
+//                 ...state,
+//                 error: null,
+//             };
+//         default:
+//             return state;
+//     }
 
-}
+// }
 
 
 

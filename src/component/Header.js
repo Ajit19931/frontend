@@ -17,19 +17,26 @@ const Header = () => {
   };
   const ToggleClass1 = () => {
     setActiveCart(!isActiveCart);
-
     // if(setActiveCart === true){
     //   document.body.style.overflow = 'hidden';
     // }
- 
-
- 
   };
+
+  // header fixed
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  window.onscroll = () => {
+    setIsScrolled(window.pageYOffset === 0 ? false : true);
+    return () => (window.onscroll = null);
+  };
+
+
   const dispatch = useDispatch();
   const { user, loading } = useSelector(
     (state) => state.user
   );
   const { cartItems } = useSelector((state) => state.cart);
+  const { wishlistItems } = useSelector((state) => state.wishlist);
 
   const logouthandle = () => {
     dispatch(logout());
@@ -54,7 +61,7 @@ const Header = () => {
       <MetaData title="Search A Product -- ECOMMERCE" />
 
 
-      <div className="header-top">
+      {/* <div className="header-top">
         <div className="container">
           <div className="row">
             <div className="col-md-12 col-lg-5">
@@ -91,8 +98,8 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </div>
-      <header className="header-part">
+      </div> */}
+      <header  className={isScrolled ? "header-part active" : "header-part"}>
         <div className="container">
           <div className="header-content">
             <div className="header-media-group">
@@ -108,7 +115,7 @@ const Header = () => {
             <Link to="/" className="header-logo ">
               <img src={require('../assets/images/logo.png')} alt="logo" /></Link>
             <form className={!isActive ? "header-form mx-4 active" : "header-form mx-4 inactive"} onSubmit={searchSubmitHandler}>
-              <input type="text" onChange={(e) => setKeyword(e.target.value)} placeholder="Search anything..." />
+              <input type="text" onChange={(e) => setKeyword(e.target.value)} placeholder="Search for products & more....." />
               <button type="submit"><i className="fas fa-search"></i></button>
             </form>
             {user ? (
@@ -137,10 +144,10 @@ const Header = () => {
 
             <div className="header-widget-group">
 
-              <Link to="/" className="header-widget" title="Compare List">
-                <i className="fas fa-random"></i><sup>0</sup></Link>
-              <Link to="/" className="header-widget" title="Wishlist">
-                <i className="fas fa-heart"></i><sup>0</sup></Link>
+              {/* <Link to="/" className="header-widget" title="Compare List">
+                <i className="fas fa-random"></i><sup>0</sup></Link> */}
+              <Link to="/wishlist" className="header-widget" title="Wishlist">
+                <i className="fas fa-heart"></i><sup> {wishlistItems.length}</sup></Link>
               <button className="header-widget header-cart" title="Cartlist" onClick={ToggleClass1}>
                 <i className="fas fa-shopping-basket"></i><sup>{cartItems.length}</sup><span>total price<small>{`₹ ${cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0)}`}</small>
                 </span>
@@ -162,7 +169,7 @@ const Header = () => {
         </Link>
         <button className="cate-btn" title="Category List"><i className="fas fa-list"></i><span>category</span></button>
         <button className="cart-btn" title="Cartlist" onClick={ToggleClass1}><i className="fas fa-shopping-basket"></i><span>cartlist</span><sup>{cartItems.length}</sup></button>
-        <Link to="/" title="Wishlist"><i className="fas fa-heart"></i><span>wishlist</span><sup>0</sup></Link>
+        <Link to="/wishlist" title="Wishlist"><i className="fas fa-heart"></i><span>wishlist</span><sup>{wishlistItems.length}</sup></Link>
         <Link to="/" title="Compare List"><i className="fas fa-random"></i><span>compare</span><sup>0</sup></Link></div>
     </>
   )

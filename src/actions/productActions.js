@@ -21,6 +21,9 @@ import {
     UPDATE_PRODUCT_FAIL,
     UPDATE_PRODUCT_REQUEST,
     UPDATE_PRODUCT_SUCCESS,
+    SLIDER_PRODUCTS_FAIL,
+    SLIDER_PRODUCTS_REQUEST,
+    SLIDER_PRODUCTS_SUCCESS,
   
     ALL_REVIEW_REQUEST,
     ALL_REVIEW_SUCCESS,
@@ -28,6 +31,7 @@ import {
     DELETE_REVIEW_REQUEST,
     DELETE_REVIEW_SUCCESS,
     DELETE_REVIEW_FAIL,
+
   
     CLEAR_ERRORS
 } from "../constants/productConstant";
@@ -62,7 +66,26 @@ export const getProduct = (keyword = "", currentPage = "1", price = [0, 25000],c
 
 }
 
+// Get All Products ---PRODUCT SLIDER
+export const getSliderProducts = () => async (dispatch) => {
+    try {
+        dispatch({ type: SLIDER_PRODUCTS_REQUEST });
 
+        const { data } = await axios.get('/api/v1/products/all');
+
+       
+
+        dispatch({
+            type: SLIDER_PRODUCTS_SUCCESS,
+            payload: data.products,
+        });
+    } catch (error) {
+        dispatch({
+            type: SLIDER_PRODUCTS_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
 
 
 

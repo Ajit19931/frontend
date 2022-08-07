@@ -11,6 +11,8 @@ import { addItemsToCart } from '../actions/cartActions';
 import { Rating } from '@material-ui/lab';
 import { NEW_REVIEW_RESET } from '../constants/productConstant';
 import ProSlider from './ProSlider';
+import { getDiscount, getDeliveryDate } from '../utils/functions';
+import { addToWishlist, removeFromWishlist } from '../actions/wishlistAction';
 
 
 const ProductDetails = () => {
@@ -25,19 +27,48 @@ const ProductDetails = () => {
 
     const dispatch = useDispatch();
 
-
-
     const { loading, error, product } = useSelector((state) => state.productDetails);
     const { success, error: reviewError } = useSelector((state) => state.newReview);
-    const { user } = useSelector( (state) => state.user );
+    const { wishlistItems } = useSelector((state) => state.wishlist);
+    const { user } = useSelector((state) => state.user);
     const { id } = useParams();
 
+    const itemInWishlist = wishlistItems.some((i) => i.product === id);
+
+    const addToWishlistHandler = () => {
+       
+        if (itemInWishlist) {
+            dispatch(removeFromWishlist(id));
+            toast.error("Remove From Wishlist", {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
+        } else {
+            dispatch(addToWishlist(id));
+            toast.success("Added To Wishlist", {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
+        }
+    }
 
     const options = {
         size: "small",
         value: product.ratings,
         readOnly: true,
-        precision:0.5,
+        precision: 0.5,
     }
 
 
@@ -105,11 +136,19 @@ const ProductDetails = () => {
                                 <div className="col-lg-6">
                                     <div className="details-gallery ">
                                         <div className="details-label-group">
-                                       
-                                            <label className="details-label new">new</label><label className="details-label off">-10%</label>
-                                            
-                                            </div>
-                                            <ProSlider product={product} />
+
+                                            {/* <label className="details-label new">new</label> */}
+                                            <label className="details-label off">{getDiscount(product.price, product.mrpPrice)}%</label>
+
+
+                                        </div>
+                                        {/* <button class="product-details-wish  wish"><i class="fas fa-heart"></i></button> */}
+
+                                        <button className={`${itemInWishlist ? "product-details-wish active" : "product-details-wish"}`} onClick={addToWishlistHandler} title="Add Your Wishlist"><i className="icofont-heart"></i></button>
+
+                                        <ProSlider product={product} />
+
+
                                         {/* <ul className="details-preview">
                                             {product.images && product.images.map((item, i) => (
                                                 <li key="{item}" >
@@ -139,9 +178,12 @@ const ProductDetails = () => {
                                         <div className="details-rating">
                                             <Rating {...options} />
                                             <span to="/">({product.numOfReviews} Reviews)</span></div>
-                                        <h3 className="details-price"><del>₹ 1200.00</del><span>₹ {product.price}</span></h3>
-                                        <p>Status : <b className={product.stock < 1 ? 'text-danger' : 'text-success'}>{product.stock < 1 ? 'Out Of Stock' : 'In Stock'}</b></p>
-                                        <p className="details-desc">{product.description}</p>
+                                        <h3 className="details-price"><del>₹ {product.mrpPrice?.toLocaleString()}</del><span>₹ {product.price?.toLocaleString()}</span>  <small className="fs-6 ms-3 off text-muted">{getDiscount(product.price, product.mrpPrice)}% off</small></h3>
+
+                                        <p className="text-muted">Status : <b className={product.stock < 1 ? 'text-danger' : 'text-success'}>{product.stock < 1 ? 'Out Of Stock' : 'In Stock'}</b></p>
+
+                                        <p className="text-muted mt-2">Delivery : <b className="text-dark fw-normal">Delivery by {getDeliveryDate()}</b></p>
+                                        <p className="details-desc mt-2">{product.description}</p>
 
 
                                         <div className="details-add-group row">
@@ -158,15 +200,15 @@ const ProductDetails = () => {
                                                 <button disabled={product.stock < 1 ? true : false} onClick={addTocarthandler} className="product-add" title="Add to Cart"><i className="fas fa-shopping-basket"></i><span>add to cart</span></button>
                                             </div>
                                         </div>
-                                        <div className="details-action-group  ">
+                                        {/* <div className="details-action-group  ">
                                             <div className="row">
                                                 <div className='col-6'>
-                                                    <Link className="details-wish wish " to="/" title="Add Your Wishlist"><i className="icofont-heart"></i><span>add to wish</span></Link>
+                                                   
                                                 </div>
                                                 <div className='col-6'>
                                                     <Link className="details-compare " to="/" title="Compare This Item"><i className="fas fa-random"></i><span>Compare This</span></Link></div>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="details-list-group mt-3">
                                             <label className="details-list-title">tags:</label>
                                             <ul className="details-tag-list">
@@ -175,15 +217,7 @@ const ProductDetails = () => {
                                                 <li><Link to="/">chilis</Link></li>
                                             </ul>
                                         </div>
-                                        <div className="details-list-group">
-                                            <label className="details-list-title">Share:</label>
-                                            <ul className="details-share-list">
-                                                <li><Link to="/" className="icofont-facebook" title="Facebook"></Link></li>
-                                                <li><Link to="/" className="icofont-twitter" title="Twitter"></Link></li>
-                                                <li><Link to="/" className="icofont-linkedin" title="Linkedin"></Link></li>
-                                                <li><Link to="/" className="icofont-instagram" title="Instagram"></Link></li>
-                                            </ul>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -258,31 +292,31 @@ const ProductDetails = () => {
                                             )}
 
                                         </div>
-                                        { user &&
-                                        <div className="product-details-frame">
-                                            <h3 className="frame-title">add your review</h3>
-                                            <div className="review-form">
-                                                <div className="row">
-                                                    <div className="col-lg-12 mb-3 text-center">
+                                        {user &&
+                                            <div className="product-details-frame">
+                                                <h3 className="frame-title">add your review</h3>
+                                                <div className="review-form">
+                                                    <div className="row">
+                                                        <div className="col-lg-12 mb-3 text-center">
 
-                                                        <Rating
-                                                            value={rating}
-                                                            name="rating"
-                                                            size="large"
-                                                            onChange={(e) =>
-                                                                setRating(e.target.value)
-                                                            } />
+                                                            <Rating
+                                                                value={rating}
+                                                                name="rating"
+                                                                size="large"
+                                                                onChange={(e) =>
+                                                                    setRating(e.target.value)
+                                                                } />
 
 
+                                                        </div>
+                                                        <div className="col-lg-12">
+                                                            <div className="form-group"><textarea className="form-control" placeholder="Describe" value={comment} required onChange={(e) => setComment(e.target.value)}></textarea></div>
+                                                        </div>
+
+                                                        <div className="col-lg-6 offset-md-3"><button onClick={reviewSubmitHandler} className="btn btn-inline"><i className="icofont-water-drop"></i><span>drop your review</span></button></div>
                                                     </div>
-                                                    <div className="col-lg-12">
-                                                        <div className="form-group"><textarea className="form-control" placeholder="Describe" value={comment} required onChange={(e) => setComment(e.target.value)}></textarea></div>
-                                                    </div>
-
-                                                    <div className="col-lg-6 offset-md-3"><button onClick={reviewSubmitHandler} className="btn btn-inline"><i className="icofont-water-drop"></i><span>drop your review</span></button></div>
                                                 </div>
-                                            </div>
-                                        </div>}
+                                            </div>}
                                     </div>
                                 </div>
                             </div>

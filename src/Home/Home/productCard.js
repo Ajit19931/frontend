@@ -1,9 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { addToWishlist, removeFromWishlist } from '../../actions/wishlistAction';
 import { Rating } from '@material-ui/lab';
+import { getDiscount } from '../../utils/functions';
+import { toast } from 'react-toastify';
 
-const productCard = ({ product }) => {
+const ProductCard = ({ product }) => {
   const options = {
 
     value: product.ratings,
@@ -12,23 +16,59 @@ const productCard = ({ product }) => {
     precision:0.5,
 
   }
+
+  const dispatch = useDispatch();
+
+  const { wishlistItems } = useSelector((state) => state.wishlist);
+  
+  const itemInWishlist = wishlistItems.some((i) => i.product === product._id);
+
+  const addToWishlistHandler = () => {
+       
+    if (itemInWishlist) {
+        dispatch(removeFromWishlist(product._id));
+        toast.error("Remove From Wishlist", {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            });
+    } else {
+        dispatch(addToWishlist(product._id));
+        toast.success("Added To Wishlist", {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            });
+    }
+}
+
   return (
     <>
       <div className="col" key={product._id}>
-        <div className="product-card" >
+        <div className="product-card mb-3" >
           <div className="product-media">
             <div className="product-label">
-              <label className="label-text sale">sale</label>
-              <label className="label-text new">new</label>
+              {/* <label className="label-text sale">sale</label> */}
+              <label className=" new">{getDiscount(product.price, product.mrpPrice)}%</label>
             </div>
-            <button className="product-wish wish"><i className="fas fa-heart"></i></button>
-            <Link className="product-image" to="/"><img src={product.images[0].url} alt="product" />
+            <button onClick={addToWishlistHandler} className={`${itemInWishlist ? "active" : ""} product-wish wish`} ><i className="fas fa-heart"></i></button>
+            <Link className="product-image" to={`/product/${product._id}`}><img src={product.images[0].url} alt="product" />
             </Link>
-            <div className="product-widget">
+            {/* <div className="product-widget">
               <Link title="Product Compare" to="/" className="fas fa-random"></Link>
               <Link title="Product Video" to="/" className="venobox fas fa-play" ></Link>
               <Link title="Product View" to={`/product/${product._id}`} className="fas fa-eye" ></Link>
-            </div>
+            </div> */}
           </div>
           <div className="product-content">
             <div className="product-rating">
@@ -38,7 +78,7 @@ const productCard = ({ product }) => {
 
             <h6 className="product-name"><Link to={`/product/${product._id}`}>{product.name}</Link></h6>
 
-            <h6 className="product-price"><del>{product.mrp}</del><span>{`₹ ${product.price}`}
+            <h6 className="product-price"><del>₹ {product.mrpPrice?.toLocaleString()}</del><span>{`₹ ${product.price?.toLocaleString()}`}
             </span></h6>
 
             {/* <button className="product-add" title="Add to Cart"><i className="fas fa-shopping-basket"></i><span>BUY NOW</span></button> */}
@@ -56,4 +96,4 @@ const productCard = ({ product }) => {
   )
 }
 
-export default productCard;
+export default ProductCard;

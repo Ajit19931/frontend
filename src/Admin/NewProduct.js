@@ -27,6 +27,7 @@ const NewProduct = () => {
 
     const [name, setName] = useState();
     const [price, setPrice] = useState();
+    const [mrpPrice, setMrpPrice] = useState();
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
     const [stock, setStock] = useState("");
@@ -56,7 +57,7 @@ const NewProduct = () => {
         myForm.set("price", price);
         myForm.set("description", description);
         myForm.set("stock", stock);
-
+        myForm.set("mrpPrice", mrpPrice);
         myForm.set("category", category);
 
         images.forEach((image) => {
@@ -110,6 +111,12 @@ const NewProduct = () => {
                                         <div className="form-floating ">
                                             <input type="number" className="form-control" placeholder="Product Price" required value={price} onChange={(e) => setPrice(e.target.value)} />
                                             <label>Price</label>
+                                        </div>
+                                    </div>
+                                    <div className="mb-3 col-md-6">
+                                        <div className="form-floating ">
+                                            <input type="number" className="form-control" placeholder="Product Price" required value={mrpPrice} onChange={(e) => setMrpPrice(e.target.value)} />
+                                            <label>MRP Price</label>
                                         </div>
                                     </div>
                                     <div className="mb-3 col-md-6">

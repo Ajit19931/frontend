@@ -30,7 +30,7 @@ const UserList = () => {
             dispatch(clearErrors());
         }
         if (isDeleted) {
-            toast.success("User Deleted Successfully ");
+             toast.success("User Deleted Successfully ");
             dispatch({ type: DELETE_USER_RESET });
         }
 

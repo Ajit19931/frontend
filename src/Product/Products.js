@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import ProductCard from '../Home/Home/productCard';
+import ProductCard from '../Home/Home/ProductCard';
 import MetaData from '../component/MetaData.js';
 import { getProduct, clearErrors } from "../actions/productActions";
 import { useSelector, useDispatch } from "react-redux";

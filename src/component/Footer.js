@@ -7,7 +7,7 @@ const Footer = () => {
   const [visible, setVisible] = useState(false)
   
   const toggleVisible = () => {
-    const scrolled = document.documentElement.scrollTop;
+    const scrolled = window.scrollY === 0;
     if (scrolled > 300){
       setVisible(true)
     } 

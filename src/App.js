@@ -47,6 +47,12 @@ import UpdateOrdersList from "./Admin/UpdateOrdersList";
 import UserList from "./Admin/UserList";
 import UserDetails from "./Admin/UserDetails";
 import ProductReviews from "./Admin/ProductReviews.js";
+import NewSlider from "./Admin/NewSlider";
+import SliderList from "./Admin/SliderList";
+import UpdateSliderss from "./Admin/UpdateSliderss";
+import CategoryList from "./Admin/AllCategoryList";
+import NewCategory from "./Admin/NewCategory";
+import WishList from "./component/WishList/WishList";
 
 function App() {
 
@@ -95,6 +101,7 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/products/:keyword" element={<Products />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/wishlist" element={<WishList />} />
 
         <Route exact path="*" element={<Error />} />
 
@@ -123,6 +130,14 @@ function App() {
           <Route exact path='/admin/userlist' element={<UserList />} />
           <Route exact path='/admin/user/:id' element={<UserDetails />} />
           <Route exact path='/admin/reviews' element={<ProductReviews />} />
+          <Route exact path='/admin/slider' element={<NewSlider />} />
+          <Route exact path='/admin/sliderlist' element={<SliderList />} />
+          <Route exact path='/admin/updateslider/:id' element={<UpdateSliderss />} />
+
+          <Route exact path='/admin/categorieslist' element={<CategoryList />} />
+          <Route exact path='/admin/newcategory' element={<NewCategory />} />
+          
+         
          
         </Route>
 
@@ -130,7 +145,7 @@ function App() {
             window.location.pathname === "/process/payment" ? null : <Route exact path="*" element={ <Error /> } /> 
           } */}
        
-         <Route  element={window.location.pathname === "/process/payment" ? "" : <Error /> } />
+         {/* <Route  element={window.location.pathname === "/process/payment" ? "" : <Error /> } /> */}
 
       </Routes>
 

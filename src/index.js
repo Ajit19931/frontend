@@ -12,7 +12,15 @@ import 'react-toastify/dist/ReactToastify.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store} >
-    <ToastContainer autoClose={1000}/>
+    <ToastContainer position="bottom-center"
+      autoClose={1000}
+      hideProgressBar
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover />
     <App />
     <ToastContainer />
   </Provider>

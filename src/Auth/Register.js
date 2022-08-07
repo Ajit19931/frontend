@@ -72,7 +72,7 @@ const Register = () => {
             <section className="user-form-part">
                 <div className="container">
                     <div className="row justify-content-center">
-                        <div className="col-12 col-sm-10 col-md-12 col-lg-12 col-xl-10">
+                        <div className="col-12 col-sm-10 col-md-12 col-lg-12 col-xl-5">
                             <div className="user-form-logo">
                                 <Link to="/"><img src={require('../assets/images/logo.png')} alt="logo" /></Link>
                             </div>
@@ -82,7 +82,7 @@ const Register = () => {
                                     <p>Setup A New Account In A Minute</p>
                                 </div>
                                 <div className="user-form-group">
-                                    <ul className="user-form-social">
+                                    {/* <ul className="user-form-social">
                                         <li><Link to="/" className="facebook"><i className="fab fa-facebook-f"></i>login with facebook</Link></li>
                                         <li><Link to="/" className="twitter"><i className="fab fa-twitter"></i>login with twitter</Link></li>
                                         <li><Link to="/" className="google"><i className="fab fa-google"></i>login with google</Link></li>
@@ -90,7 +90,7 @@ const Register = () => {
                                     </ul>
                                     <div className="user-form-divider">
                                         <p>or</p>
-                                    </div>
+                                    </div> */}
                                     <form className="user-form" encType="multipart/form-data"
                                         onSubmit={registerSubmit}>
                                         <div className="form-group">
@@ -126,12 +126,12 @@ const Register = () => {
                                     </form>
                                 </div>
                             </div>
-                            <div className="user-form-remind">
+                            <div className="user-form-remind mb-5">
                                 <p>Already Have An Account?<Link to="/login">Login here</Link></p>
                             </div>
-                            <div className="user-form-footer">
+                            {/* <div className="user-form-footer">
                                 <p>Greeny | &COPY; Copyright by <Link to="/">Ajit</Link></p>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

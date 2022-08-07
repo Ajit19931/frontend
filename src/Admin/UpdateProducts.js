@@ -28,6 +28,7 @@ const UpdateProducts = () => {
 
     const [name, setName] = useState();
     const [price, setPrice] = useState();
+    const [mrpPrice, setMrpPrice] = useState();
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
     const [stock, setStock] = useState("");
@@ -42,6 +43,7 @@ const UpdateProducts = () => {
             setName(product.name);
             setDescription(product.description);
             setPrice(product.price);
+            setMrpPrice(product.mrpPrice);
             setStock(product.stock);
             setCategory(product.category);
             setOldImages(product.images);
@@ -71,6 +73,7 @@ const UpdateProducts = () => {
 
         myForm.set("name", name);
         myForm.set("price", price);
+        myForm.set("mrpPrice", mrpPrice);
         myForm.set("description", description);
         myForm.set("stock", stock);
 
@@ -131,6 +134,12 @@ const UpdateProducts = () => {
                                         </div>
                                     </div>
                                     <div className="mb-3 col-md-6">
+                                        <div className="form-floating ">
+                                            <input type="number" className="form-control" placeholder="Product Price" required value={mrpPrice} onChange={(e) => setMrpPrice(e.target.value)} />
+                                            <label>MRP Price</label>
+                                        </div>
+                                    </div>
+                                    <div className="mb-3 col-md-6">
                                         <div className="form-floating mb-3">
                                             <select className="form-select" defaultValue="secate"
                                                 required value={category} onChange={(e) => setCategory(e.target.value)} aria-label="Floating label select example">
@@ -153,7 +162,7 @@ const UpdateProducts = () => {
                                     <div className="mb-3">
                                         <label htmlFor="formFileMultiple" className="form-label">Upload Product Images</label>
 
-                                        <input className="form-control" type="file" multiple accept='images/*' required name="avtar" onChange={updateProductImagesChange} />
+                                        <input className="form-control" type="file" multiple accept='images/*'  name="avtar" onChange={updateProductImagesChange} />
                                     </div>
                                     <div className="mb-3 d-flex align-items-center overflow-auto overflow-x-hidden">
                                         {oldImages && oldImages.map((image, index) => (
