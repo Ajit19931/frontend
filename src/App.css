@@ -13,15 +13,15 @@ width: 100%;
 height: 100%;
 top:0;
 left: 0;
-background-color: rgba(0, 0, 0, 0.662);
-z-index: 9999999;
+background-color: rgba(0, 0, 0, 0.269);
+z-index: 99999;
   }
   
   
   #loading-bar-spinner.spinner .spinner-icon {
-    width: 70px;
-    height: 70px;
-    border:  solid 7px transparent;
+    width: 40px;
+    height: 40px;
+    border:  solid 5px transparent;
     border-top-color:  #00C8B1 !important;
     border-left-color: #00C8B1 !important;
     border-radius: 50%;
@@ -43,3 +43,4 @@ z-index: 9999999;
 .MuiDataGrid-root{
   background-color: #fff !important;
 }
+

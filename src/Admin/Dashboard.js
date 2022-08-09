@@ -18,6 +18,7 @@ const Dashboard = () => {
     const { orders } = useSelector((state) => state.allOrders);
     const { users } = useSelector((state) => state.allUsers);
 
+    // const [toggleSidebar, setToggleSidebar] = useState(false);
 
     let outofStock = 0;
 
@@ -65,7 +66,7 @@ const Dashboard = () => {
     return (
         <>
             <div className="content">
-                <AdminHeader />
+            <AdminHeader  />
                 <div className="container-fluid pt-4 px-4">
                     <div className="row g-4">
 

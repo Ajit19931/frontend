@@ -27,7 +27,7 @@ import Shipping from "./component/cart/Shipping";
 import ConfirmOrder from "./component/order/ConfirmOrder.js";
 import Payment from "./component/cart/Payment.js";
 
-import { BrowserRouter as Router, Routes, Route  } from "react-router-dom";
+import {  Routes, Route ,useLocation } from "react-router-dom";
 import axios from "axios";
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
@@ -59,6 +59,8 @@ function App() {
   const { user, isAuthenticated } = useSelector((state) => state.user);
 
   const [stripeApiKey, setStripeApiKey] = useState("");
+  // const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
   async function getStripeApiKey() {
     const { data } = await axios.get("/api/v1/stripeapikey");
@@ -68,13 +70,32 @@ function App() {
   useEffect(() => {
     store.dispatch(loadUser());
     getStripeApiKey();
+
   }, []);
 
-  
+   // always scroll to top on route/path change
+   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth"
+    });
+  }, [pathname]);
 
+
+
+  
+//  // disable right click
+//  window.addEventListener("contextmenu", (e) => e.preventDefault());
+//  window.addEventListener("keydown", (e) => {
+//    if (e.keyCode == 123) e.preventDefault();
+//    if (e.ctrlKey && e.shiftKey && e.keyCode === 73) e.preventDefault();
+//    if (e.ctrlKey && e.shiftKey && e.keyCode === 74) e.preventDefault();
+//  });
 
   return (
-    <Router>
+    // <Router>
+    <>
 
       {user && user.role === 'admin' ? (<AdminSidebar />) : (<><Header /> <Navbar /></>)}
       {/* {window.pathname!=='/login' ? (<><Header /> <Navbar /></>) :""}  */}
@@ -101,7 +122,7 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/products/:keyword" element={<Products />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/wishlist" element={<WishList />} />
+        
 
         <Route exact path="*" element={<Error />} />
 
@@ -115,7 +136,7 @@ function App() {
           <Route exact path="/orders" element={<MyOrders />} />
           <Route exact path="/order/:id" element={<OrderDetails />} />
          
-          
+          <Route path="/wishlist" element={<WishList />} />
         </Route>
 
         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} adminRoute={true} isAdmin={user && user.role === "admin" ? true : false} />}>
@@ -154,9 +175,9 @@ function App() {
 
       {user && user.role === 'admin' ? "" : (<Footer />)}
 
-    </Router>
+    {/* // </Router> */}
 
-
+</>
 
   );
 }

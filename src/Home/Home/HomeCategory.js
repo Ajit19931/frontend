@@ -11,19 +11,19 @@ const HomeCategory = () => {
                     <div className="row ">
                         <div className="col-lg-12 p-0 ">
                             <ul className="homecate py-2 pb-0">
-                                <li> <Link className="cateimg" to={`/product`}>
+                                <li> <Link className="cateimg" to={`/products`}>
                                     <img src={require('../../assets/images/category/1.png')} alt="category" />
                                 </Link></li>
 
-                                <li> <Link className="cateimg" to={`/product`}>
+                                <li> <Link className="cateimg" to={`/products`}>
                                     <img src={require('../../assets/images/category/2.png')} alt="category" />
                                 </Link></li>
                                 
-                                <li> <Link className="cateimg" to={`/product`}>
+                                <li> <Link className="cateimg" to={`/products`}>
                                     <img src={require('../../assets/images/category/3.png')} alt="category" />
                                 </Link></li>
                                 
-                                <li> <Link className="cateimg" to={`/product`}>
+                                <li> <Link className="cateimg" to={`/products`}>
                                     <img src={require('../../assets/images/category/4.png')} alt="category" />
                                 </Link></li>
                                 

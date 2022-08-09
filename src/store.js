@@ -48,10 +48,12 @@ let initialState = {
             ? JSON.parse(localStorage.getItem('wishlistItems'))
             : [],
     },
-
+    
 };
 
 const middleware = [thunk];
+
+
 
 const store = createStore(
     reducer,

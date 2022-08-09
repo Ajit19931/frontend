@@ -1,21 +1,26 @@
 
 import React, { useEffect, useState } from 'react'
 import MetaData from '../component/MetaData.js';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { clearErrors, register } from "../actions/userAction";
 import { useSelector, useDispatch } from "react-redux";
 //import Loader from "../component/Loading";
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 
+
 const Register = () => {
-    debugger;
+
     const [user, setUser] = useState({
         name: "",
         email: "",
         password: "",
+        cpassword: "",
     });
 
-    const { name, email, password } = user;
+    const { name, email, password, cpassword } = user;
 
     const [avatar, setAvatar] = useState("");
     const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
@@ -27,7 +32,16 @@ const Register = () => {
     );
     useEffect(() => {
         if (error) {
-            toast.error(error);
+            toast.error(error, {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
             dispatch(clearErrors());
         }
 
@@ -38,6 +52,46 @@ const Register = () => {
     const registerSubmit = (e) => {
         e.preventDefault();
 
+        if (password.length < 8) {
+            toast.error("Password length must be atleast 8 characters", {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            return;
+        }
+        if (password !== cpassword) {
+            toast.error("Password Doesn't Match", {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            return;
+        }
+        if (!avatar) {
+            toast.error("Select Avatar", {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            return;
+        }
+
         const myForm = new FormData();
 
         myForm.set("name", name);
@@ -45,7 +99,16 @@ const Register = () => {
         myForm.set("password", password);
         myForm.set("avatar", avatar);
         dispatch(register(myForm));
-        toast.success(' Register Successfully created !');
+        // toast.success(' Register Successfully created !',{
+        //     position: "bottom-center",
+        //     autoClose: 3000,
+        //     hideProgressBar: true,
+        //     closeOnClick: true,
+        //     pauseOnHover: true,
+        //     draggable: true,
+        //     progress: undefined,
+        //     theme: "dark",
+        //     });
     };
 
     const registerDataChange = (e) => {
@@ -94,7 +157,7 @@ const Register = () => {
                                     <form className="user-form" encType="multipart/form-data"
                                         onSubmit={registerSubmit}>
                                         <div className="form-group">
-                                            <input type="text" className="form-control" placeholder="Enter your Name" name="name"
+                                            <input type="text" className="form-control" placeholder="Enter your Name" required name="name"
                                                 value={name}
                                                 onChange={registerDataChange} />
                                         </div>
@@ -104,10 +167,25 @@ const Register = () => {
                                                 value={email}
                                                 onChange={registerDataChange} />
                                         </div>
+
+                                        <div className="form-group1 mb-2 d-flex align-items-center justify-content-between">
+                                            <h5 className="form-label1">Your Gender :</h5>
+                                            <RadioGroup row aria-label="gender" name="gender" color="green" >
+                                                <FormControlLabel value="male" onChange={registerDataChange} control={<Radio required />} label="Female" />
+                                                <FormControlLabel onChange={registerDataChange} value="Female" control={<Radio required />} label="Male" />
+
+                                            </RadioGroup>
+                                        </div>
                                         <div className="form-group">
                                             <input type="password" className="form-control" placeholder="Enter your password"
-                                                name="password"
+                                                name="password" required
                                                 value={password}
+                                                onChange={registerDataChange} />
+                                        </div>
+                                        <div className="form-group">
+                                            <input type="password" className="form-control" placeholder="Enter your password"
+                                                name="cpassword" required
+                                                value={cpassword}
                                                 onChange={registerDataChange} />
                                         </div>
                                         <div className="form-group row justify-content-center align-items-center">

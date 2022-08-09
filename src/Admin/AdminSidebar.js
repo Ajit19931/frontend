@@ -1,22 +1,26 @@
 import React from 'react';
- import { Link } from 'react-router-dom';
- import {  useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
 import "../assets/css/admin.css"
 
 
 
 const AdminSidebar = () => {
   const { user } = useSelector((state) => state.user);
+
+
+
   return (
     <>
-      <div className="sidebar shadow-md pb-3">
+      {/* <div className={isToggleActive ? 'sidebar shadow-md pb-3 open' : "sidebar shadow-md pb-3"}> */}
+        <div className="sidebar shadow-md pb-3">
         <nav className="navbar bg-light navbar-light">
-          <Link to="/" className="navbar-brand mx-4 mb-3">
+          <Link to="/admin/dashboard" className="navbar-brand mx-4 mb-3">
             <img src={require('../assets/images/logo.png')} alt="logo" width="100%" />
-         </Link>
+          </Link>
           <div className="d-flex align-items-center ms-4 mb-4">
             <div className="position-relative">
-            <img src={user.avatar && user.avatar.url} alt={user && user.name} className="rounded-circle"  width="40px" />
+              <img src={user.avatar && user.avatar.url} alt={user && user.name} className="rounded-circle" width="40px" />
               <div className="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
             </div>
             <div className="ms-3">
@@ -26,23 +30,23 @@ const AdminSidebar = () => {
           </div>
           <div className="navbar-nav w-100">
             <Link to="/admin/dashboard" className="nav-item nav-link active"><i className="fa fa-tachometer-alt me-2"></i>Dashboard</Link>
-          
+
             <div className="nav-item dropdown">
               <Link to="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i className="fa fa-laptop me-2"></i>Slider</Link>
               <div className="dropdown-menu bg-transparent border-0">
                 <Link to="/admin/slider" className="dropdown-item">Add Slider</Link>
                 <Link to="/admin/sliderlist" className="dropdown-item">All Slider</Link>
-               
+
               </div>
             </div>
             <Link to="/admin/userlist" className="nav-item nav-link "><i className="fas fa-user me-2"></i>User</Link>
-            
+
             <div className="nav-item dropdown">
               <Link to="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i className="fa fa-laptop me-2"></i>Products</Link>
               <div className="dropdown-menu bg-transparent border-0">
                 <Link to="/admin/newproduct" className="dropdown-item">Add Products</Link>
                 <Link to="/admin/productlist" className="dropdown-item">All Products</Link>
-               
+
               </div>
             </div>
             <div className="nav-item dropdown">
@@ -50,17 +54,18 @@ const AdminSidebar = () => {
               <div className="dropdown-menu bg-transparent border-0">
                 <Link to="/admin/addcategories" className="dropdown-item">Add Category</Link>
                 <Link to="/admin/categorieslist" className="dropdown-item">All Category</Link>
-               
+
               </div>
             </div>
             <Link to="/admin/orders" className="nav-item nav-link"><i className="fa fa-shopping-bag me-2"></i>Orders</Link>
             <Link to="/admin/reviews" className="nav-item nav-link"><i class="fas fa-comments me-2"></i>Reviews</Link>
-            
-              </div>
+
+          </div>
         </nav>
       </div>
 
-      
+
+
     </>
   )
 }

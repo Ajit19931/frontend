@@ -8,6 +8,8 @@ import MetaData from '../component/MetaData.js';
 import AdminHeader from './AdminHeader';
 import AdminFooter from './AdminFooter';
 import { NEW_PRODUCT_RESET } from '../constants/productConstant';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
 const NewProduct = () => {
@@ -123,7 +125,7 @@ const NewProduct = () => {
                                         <div className="form-floating mb-3">
                                             <select className="form-select" defaultValue="secate"
                                                 required value={category} onChange={(e) => setCategory(e.target.value)} aria-label="Floating label select example">
-                                                <option value="" disabled selected > -- select an option -- </option>
+                                                <option value="secate" disabled selected > -- select an option -- </option>
 
                                                 {categories.map((cate) => (
                                                     <option key={cate} value={cate} >{cate}</option>
@@ -150,11 +152,34 @@ const NewProduct = () => {
                                             <img key={index} src={image} width="100" height="100" alt="product images" className='me-2 border' />
                                         ))}
                                     </div>
-                                    <div className="mb-3 col-md-12">
+                                    {/* <div className="mb-3 col-md-12">
                                         <div className="form-floating">
                                             <textarea className="form-control" placeholder="Leave a comment here" required value={description} cols="30" rows="2" onChange={(e) => setDescription(e.target.value)} style={{ height: "150px" }} ></textarea>
                                             <label>Description</label>
                                         </div>
+                                    </div> */}
+                                    <div className='mb-3 col-md-12'>
+                                        <CKEditor
+                                            editor={ClassicEditor}
+                                            data={description}
+                                            // onChange={(e) => setDescription(e.target.value)}
+                                            onChange={(event, editor) => {
+                                                const data = editor.getData();
+                                                // console.log({ event, editor, data });
+                                                setDescription(data) ;
+                                            }}
+
+                                        // config={{
+                                        //     plugins: [Paragraph, Bold, Italic, Essentials],
+                                        //     toolbar: ['bold', 'italic']
+                                        // }}
+
+                                        // onReady={editor => {
+                                        //     // You can store the "editor" and use when it is needed.
+                                        //     console.log('Editor1 is ready to use!', editor);
+                                        // }}
+                                        />
+
                                     </div>
                                     <div className="mb-3 col-md-4">
                                         <button type="submit" className="btn btn-sm btn-success" disabled={loading ? true : false}>Create Product</button>

@@ -13,6 +13,7 @@ import { NEW_REVIEW_RESET } from '../constants/productConstant';
 import ProSlider from './ProSlider';
 import { getDiscount, getDeliveryDate } from '../utils/functions';
 import { addToWishlist, removeFromWishlist } from '../actions/wishlistAction';
+// import ReactHtmlParser from 'react-html-parser';
 
 
 const ProductDetails = () => {

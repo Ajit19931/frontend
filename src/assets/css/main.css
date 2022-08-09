@@ -1776,12 +1776,13 @@ tbody tr td:last-child {
     padding: 5px 5px;
     border-radius: 5px;
     background: var(--white);
-    border: 1px solid var(--white);
+    border: 1px solid #ccc;
     transition: all linear .3s;
     -webkit-transition: all linear .3s;
     -moz-transition: all linear .3s;
     -ms-transition: all linear .3s;
-    -o-transition: all linear .3s
+    -o-transition: all linear .3s;
+    margin-bottom: 2px;
 }
 
 /* .product-card:hover {
@@ -6721,9 +6722,9 @@ tbody tr td:last-child {
 }
 
 .shop-widget {
-    padding: 20px 20px;
+    padding: 10px 20px;
     border-radius: 8px;
-    margin-bottom: 25px;
+    margin-bottom: 0px;
     background: var(--white);
     border: 1px solid var(--white)
 }
@@ -6733,9 +6734,9 @@ tbody tr td:last-child {
 }
 
 .shop-widget-title {
-    padding-bottom: 12px;
+    padding-bottom: 0px;
     text-transform: uppercase;
-    border-bottom: 1px solid var(--border)
+    border-bottom: 0px solid var(--border)
 }
 
 .shop-widget-btn {
@@ -6776,13 +6777,9 @@ tbody tr td:last-child {
 }
 
 .shop-widget-group {
-    display: -ms-grid;
-    display: grid;
-    grid-gap: 10px;
-    grid-template-columns: repeat(2, 1fr);
-    -ms-grid-rows: auto;
-    grid-template-rows: auto;
-    margin: 15px 0px
+    margin: 0px 0px;
+    display: flex;
+    justify-content: space-between;
 } 
 
 .shop-widget-group input {
@@ -7121,8 +7118,8 @@ tbody tr td:last-child {
 
   .accordion-button:not(.collapsed) {
     color:var(--primary);
-    background-color: #e7f1ff;
-    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
+    background-color: transparent !important;
+    box-shadow: none;
 }
 .accordion-button {
     padding: 0rem 1.25rem;}
@@ -7223,3 +7220,42 @@ tbody tr td:last-child {
         height: 100px;
     }
 }
+
+.accordion-button:focus {
+    z-index: 3;
+    border-color:none !important;
+    outline: 0;
+    box-shadow:none !important;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+    border-radius: 10px;
+  }
+
+  body::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #119744;
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .MuiRadio-colorSecondary.Mui-checked {
+    color: var(--primary) !important;
+  }

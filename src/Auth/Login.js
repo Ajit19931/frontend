@@ -23,7 +23,7 @@ const Login = () => {
 		dispatch(login(loginEmail, loginPassword));
 
 		
-		toast.success(' login Successfully  !');
+		// toast.success(' login Successfully  !');
 
 		
 	}
@@ -32,7 +32,16 @@ const Login = () => {
 
 	useEffect(() => {
 		if (error) {
-			toast.error(error);
+			toast.error(error ,{
+				position: "bottom-center",
+				autoClose: 3000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "dark",
+				}) ;
 			dispatch(clearErrors());
 		}
 		// if(user.role === 'admin'){

@@ -120,8 +120,8 @@ const HomeProductSlider = ({ title }) => {
 
                       <h6 className="product-name"><Link to={`/product/${product._id}`}>{product.name}</Link></h6>
 
-                      <h6 className="product-price"><del>₹ {product.mrpPrice?.toLocaleString()}</del><span>{`₹ ${product.price?.toLocaleString()}`}
-                      </span></h6>
+                      <h6 className="product-price">MRP : <del className="text-muted fw-normal ms-2"> ₹ {product.mrpPrice?.toLocaleString()}</del><span>{`₹ ${product.price?.toLocaleString()}`}
+            </span></h6>
 
                       {/* <button className="product-add" title="Add to Cart"><i className="fas fa-shopping-basket"></i><span>BUY NOW</span></button> */}
 

@@ -3,7 +3,7 @@ import React from 'react'
 import MetaData from '../component/MetaData.js';
 
 import { useSelector } from "react-redux";
-// import Loader from "../component/Loading";
+import Loader from "../component/Loading";
 
 import { Link, useNavigate } from 'react-router-dom';
 import HomeSlider from "./HomeSlider.js";
@@ -17,11 +17,11 @@ import HomeProductSlider from './Home/HomeProductSlider';
 
 const Home = () => {
 
-   const { user } = useSelector((state) => state.user);
+   const { user ,loading } = useSelector((state) => state.user);
 
- 
+
    const navigate = useNavigate();
-  
+
 
    if (user && user.role === 'admin') {
       navigate("/admin/dashboard");
@@ -29,26 +29,27 @@ const Home = () => {
 
    return (
       <>
-         {/* {loading ? (<Loader />) :
-            (<> */}
-               <MetaData title="Online Shopping Site for Mobiles, Electronics, Furniture, Grocery, Lifestyle, Books & More. Best Offers!" />
-               <HomeSlider />
-               <HomeCategory />
-               <HomeProductSlider title={"Suggested for You"} />
-               <DealSlider title={"Discounts for You"} />
+         {loading ? (<Loader />) :
+            (<>
+         <MetaData title="Online Shopping Site for Mobiles, Electronics, Furniture, Grocery, Lifestyle, Books & More. Best Offers!" />
+         <HomeSlider />
+         <HomeCategory />
+         </>)}
+         <HomeProductSlider title={"Suggested for You"} />
+         <DealSlider title={"Discounts for You"} />
 
-               <div className="section promo-part">
-                  <div className="container-fluid">
-                     <div className="row">
-                        <div className="col-lg-12">
-                           <div className="promo-img">
-                              <Link to="/products">
-                                 <img src={require('../assets/images/promo/home/03.jpg')} alt="promo" /></Link>
-                           </div>
-                        </div></div></div></div>
-                        <HomeProductSlider title={"You May Also Like..."} />
+         <div className="section promo-part">
+            <div className="container-fluid">
+               <div className="row">
+                  <div className="col-lg-12">
+                     <div className="promo-img">
+                        <Link to="/products">
+                           <img src={require('../assets/images/promo/home/03.jpg')} alt="promo" /></Link>
+                     </div>
+                  </div></div></div></div>
+         <HomeProductSlider title={"You May Also Like..."} />
 
-               {/* <section className="section recent-part mt-5">
+         {/* <section className="section recent-part mt-5">
                   <div className="container">
                      <div className="row">
                         <div className="col-lg-12">
@@ -68,8 +69,8 @@ const Home = () => {
                   </div>
                </section> */}
 
-               <DealSlider title={"Top Brands, Best Price"} />
-            {/* </>)} */}
+         <DealSlider title={"Top Brands, Best Price"} />
+         {/* </>)} */}
       </>
    )
 }

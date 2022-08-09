@@ -9,20 +9,33 @@ import { toast } from 'react-toastify';
 const AdminHeader = () => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.user);
+   
 
     const logouthandle = () => {
         dispatch(logout());
-        toast.success(' Logout Successfully ', { autoClose: 3000, });
+        toast.success(' Logout Successfully ',{
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            });
     }
+
+    
+
     return (
         <>
             <nav className="navbar navbar-expand bg-white navbar-light sticky-top px-4 py-0">
-                <Link to="index.html" className="navbar-brand d-flex d-lg-none me-4">
+                <Link to="/admin/dashboard" className="navbar-brand d-flex d-lg-none me-4">
                     <h2 className="text-primary mb-0"><i className="fa fa-hashtag"></i></h2>
                 </Link>
-                <Link to="/" className="sidebar-toggler flex-shrink-0">
+                <button className="sidebar-toggler flex-shrink-0" id="togglebtn">
                     <i className="fa fa-bars"></i>
-                </Link>
+                </button>
                 <form className="d-none d-md-flex ms-4">
                     <input className="form-control border-0" type="search" placeholder="Search" />
                 </form>
