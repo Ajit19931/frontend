@@ -34,7 +34,16 @@ const UpdateOrdersList = () => {
 
   useEffect(() => {
     if (error) {
-      toast.error(error);
+      toast.error(error , {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+    });
       dispatch(clearErrors());
     }
     if (updateError) {
@@ -42,7 +51,16 @@ const UpdateOrdersList = () => {
       dispatch(clearErrors());
     }
     if (isUpdated) {
-      toast.success("Order Updated Successfully");
+      toast.success("Order Updated Successfully", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+    });
       dispatch({ type: UPDATE_ORDER_RESET });
     }
 

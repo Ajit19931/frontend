@@ -75,7 +75,7 @@ const Dashboard = () => {
                                 <i className="fa fa-chart-bar fa-3x text-primary"></i>
                                 <div className="ms-3 text-center">
                                     <p className="mb-2">Total Sale</p>
-                                    <h4 className="mb-0">₹{totalAmount}</h4>
+                                    <h4 className="mb-0">₹ {totalAmount?.toFixed(2)}</h4>
                                 </div>
                             </div>
                         </div>

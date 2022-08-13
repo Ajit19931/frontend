@@ -13,7 +13,7 @@ import { NEW_REVIEW_RESET } from '../constants/productConstant';
 import ProSlider from './ProSlider';
 import { getDiscount, getDeliveryDate } from '../utils/functions';
 import { addToWishlist, removeFromWishlist } from '../actions/wishlistAction';
-// import ReactHtmlParser from 'react-html-parser';
+
 
 
 const ProductDetails = () => {
@@ -37,7 +37,7 @@ const ProductDetails = () => {
     const itemInWishlist = wishlistItems.some((i) => i.product === id);
 
     const addToWishlistHandler = () => {
-       
+
         if (itemInWishlist) {
             dispatch(removeFromWishlist(id));
             toast.error("Remove From Wishlist", {
@@ -49,7 +49,7 @@ const ProductDetails = () => {
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
-                });
+            });
         } else {
             dispatch(addToWishlist(id));
             toast.success("Added To Wishlist", {
@@ -61,7 +61,7 @@ const ProductDetails = () => {
                 draggable: true,
                 progress: undefined,
                 theme: "dark",
-                });
+            });
         }
     }
 
@@ -94,10 +94,34 @@ const ProductDetails = () => {
 
     const addTocarthandler = () => {
         dispatch(addItemsToCart(id, quantity));
-        toast.success('item Added to cart', { autoClose: 1200 });
+        toast.success('Item Added to cart',  {
+            position: "bottom-center",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        });
     }
 
     const reviewSubmitHandler = () => {
+
+        if (!comment) {
+            toast.error("Please enter a review comment ", {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            return;
+        }
+
         const myForm = new FormData();
         myForm.set("rating", rating);
         myForm.set("comment", comment);
@@ -112,15 +136,42 @@ const ProductDetails = () => {
 
     useEffect(() => {
         if (error) {
-            toast.error(error);
+            toast.error(error , {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
             dispatch(clearErrors());
         }
         if (reviewError) {
-            toast.error(reviewError);
+            toast.error(reviewError , {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
             dispatch(clearErrors());
         }
         if (success) {
-            toast.success("Review  Submitted successfully");
+            toast.success("Review  Submitted successfully" , {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                });
             dispatch({ type: NEW_REVIEW_RESET });
         }
         dispatch(getProductDetails(id));
@@ -184,7 +235,9 @@ const ProductDetails = () => {
                                         <p className="text-muted">Status : <b className={product.stock < 1 ? 'text-danger' : 'text-success'}>{product.stock < 1 ? 'Out Of Stock' : 'In Stock'}</b></p>
 
                                         <p className="text-muted mt-2">Delivery : <b className="text-dark fw-normal">Delivery by {getDeliveryDate()}</b></p>
-                                        <p className="details-desc mt-2">{product.description}</p>
+                                        <p className="details-desc mt-2" >
+                                            <span dangerouslySetInnerHTML={{ __html: (product.description) }}></span></p>
+
 
 
                                         <div className="details-add-group row">
@@ -240,7 +293,7 @@ const ProductDetails = () => {
                                     <div className="col-lg-12">
                                         <div className="product-details-frame">
                                             <div className="tab-descrip">
-                                                <p>{product.description}</p>
+                                                <p><span dangerouslySetInnerHTML={{ __html: (product.description) }}></span></p>
                                             </div>
                                         </div>
                                     </div>
@@ -250,7 +303,8 @@ const ProductDetails = () => {
                                 <div className="row">
                                     <div className="col-lg-12">
                                         <div className="product-details-frame">
-                                            <table className="table table-bordered">
+                                        <p><span dangerouslySetInnerHTML={{ __html: (product.specification) }}></span></p>
+                                            {/* <table className="table table-bordered">
                                                 <tbody>
                                                     <tr>
                                                         <th scope="row">Product code</th>
@@ -269,7 +323,7 @@ const ProductDetails = () => {
                                                         <td>Short Dress</td>
                                                     </tr>
                                                 </tbody>
-                                            </table>
+                                            </table> */}
                                         </div>
                                     </div>
                                 </div>

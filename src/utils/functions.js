@@ -5,7 +5,7 @@ export const getDiscount = (price, cuttedPrice) => {
 export const getDeliveryDate = () => {
     const deliveryDate = new Date();
     deliveryDate.setDate(new Date().getDate() + 7)
-    return deliveryDate.toUTCString().substring(0, 11);
+    return deliveryDate.toUTCString().substring(0, 16);
 }
 
 export const formatDate = (dt) => {

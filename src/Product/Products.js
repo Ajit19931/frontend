@@ -9,6 +9,10 @@ import { Link, useParams } from 'react-router-dom';
 import Pagination from "react-js-pagination";
 //import ReactStars from "react-rating-stars-component";
 import Slider from "@material-ui/core/Slider";
+import FormControl from '@material-ui/core/FormControl';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const categories = [
     "TV",
@@ -25,6 +29,11 @@ const Products = () => {
     const [price, setPrice] = useState([0, 25000]);
     const [category, setCategory] = useState("");
     const [ratings, setRatings] = useState(0);
+
+    // // filter toggles
+    // const [categoryToggle, setCategoryToggle] = useState(true);
+    const [ratingsToggle, setRatingsToggle] = useState(true);
+
     const { loading, error, products, productsCount, resultPerPage, filteredProductsCount } = useSelector((state) => state.products);
     const dispatch = useDispatch();
     const { keyword } = useParams();
@@ -37,6 +46,11 @@ const Products = () => {
         setPrice(newPrice);
     };
 
+    const clearFilters = () => {
+        setPrice([0, 200000]);
+        setCategory("");
+        setRatings(0);
+    }
 
     useEffect(() => {
         if (error) {
@@ -56,6 +70,10 @@ const Products = () => {
                     <div className="row content-reverse">
                         <div className="col-lg-3">
                             <div className="bg-white box-shadow-sm rounded">
+                            <div className="d-flex align-items-center justify-between gap-5 px-4 py-2 border-b">
+                                <p className="text-lg font-medium">Filters</p>
+                                <span className="text-uppercase text-primary-blue text-xs cursor-pointer font-medium" onClick={() => clearFilters()}>clear all</span>
+                            </div>
                                 <div className="shop-widget">
                                     <h6 className="shop-widget-title">Filter by Price</h6>
 
@@ -74,48 +92,35 @@ const Products = () => {
                                     </div>
 
                                 </div>
-                                <div className="shop-widget">
-                                    <h6 className="shop-widget-title">Filter by Rating</h6>
-                                    <form>
-                                        <ul className="shop-widget-list">
-                                            <Slider
-                                                value={ratings}
-                                                onChange={(e, newRating) => {
-                                                    setRatings(newRating);
-                                                }}
-                                                aria-labelledby="continuous-slider"
-                                                valueLabelDisplay="auto"
-                                                min={0}
-                                                max={5}
-                                            />
+                                <div className="shop-widget" >
+                                    <div className="d-flex justify-content-between " onClick={() => setRatingsToggle(!ratingsToggle)}>
+                                    <h6 className="shop-widget-title" >Filter by Rating</h6>
 
-
-                                            {/* {[5, 4, 3, 2, 1].map((star) => (
-                                                    <li className="category-link" key={star}
-                                                         >
-                                                        <div className="shop-widget-content">
-                                                            <ReactStars
-                                                        edit={false}
-                                                    count={star}
-                                                    onChange={() => setRatings(ratings)}
-                                                    size={24}
-                                                    isHalf={true}
-                                                    emptyIcon={<i className="far fa-star"></i>}
-                                                    halfIcon={<i className="fa fa-star-half-alt"></i>}
-                                                    fullIcon={<i className="fa fa-star"></i>}
-                                                    activeColor="#ffd700"
-                                                />
-                                                            <label>{star}</label>
-                                                        </div>
-                                                        <span className="shop-widget-number">(3)</span>
-
-                                                    </li>
-                                                ))} */}
-
-
-
-                                        </ul>
-                                    </form>
+                                    {ratingsToggle ?
+                                   
+                                        <i class="fa fa-chevron-down" style={{ fontSize: "20px" }}></i> :
+                                        <i class="fa fa-chevron-up" style={{ fontSize: "20px" }}></i>
+                                       
+                                        }
+                                        </div>
+                                    {ratingsToggle && (
+                                        <div className="mt-2">
+                                    <FormControl component="fieldset">
+                                    <RadioGroup
+                                        aria-label="ratings-radio-buttons"
+                                        onChange={(e) => setRatings(e.target.value)}
+                                        value={ratings}
+                                        name="ratings-radio-buttons"
+                                        
+                                    >
+                                        {[4, 3, 2, 1].map((el, i) => (
+                                            <FormControlLabel value={el} key={i} control={<Radio size="small" />} label={<span className="flex items-center text-sm">{el}  <i class="active icofont-star"></i>  & above</span>} />
+                                        ))}
+                                    </RadioGroup>
+                                    </FormControl>
+                                    </div>
+                                     )}
+                                    
                                 </div>
 
                                 {/* <div className="shop-widget">
@@ -143,47 +148,47 @@ const Products = () => {
                                         <div id="collapseOne" className="accordion-collapse collapse show"
                                             aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                             <div className="accordion-body">
-                                            <ul className="shop-widget-list shop-widget-scroll">
-                                            {categories.map((category, i) => (
-                                                <li className="category-link"
-                                                    key={category}
-                                                    onClick={() => setCategory(category)}
-                                                >
-                                                    <div className="shop-widget-content">
-                                                        <input type="checkbox" id={`cate ${i}`} />
-                                                        <label htmlFor={`cate ${i}`}>{category}</label></div>
-                                                    <span className="shop-widget-number">(13)</span>
+                                                <ul className="shop-widget-list shop-widget-scroll">
+                                                    {categories.map((category, i) => (
+                                                        <li className="category-link"
+                                                            key={category}
+                                                            onClick={() => setCategory(category)}
+                                                        >
+                                                            <div className="shop-widget-content">
+                                                                <input type="checkbox" id={`cate ${i}`} />
+                                                                <label htmlFor={`cate ${i}`}>{category}</label></div>
+                                                            <span className="shop-widget-number">(13)</span>
 
-                                                </li>
-                                            ))}
+                                                        </li>
+                                                    ))}
 
 
 
-                                        </ul>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
 
 
                                 </div>
-                               
+
                             </div>
                         </div>
                         {loading ? (<Loader />) :
                             (<>
                                 <div className="col-lg-9">
                                     <div className="bg-white box-shadow-sm rounded p-3">
-                                       
-                                            {!loading && products?.length === 0 && (
-                                                <div className="text-center p-5">
-                                                   
-                                                   <img className="img-fluid w-50" src={require('../assets/images/error.png')} alt="error" />
-                                                    
-                                                    <h3 className="mt-3">Sorry, No Results Found!</h3>
-                                                    <p className="text-xl text-center text-primary-grey">Please check the spelling or try searching for something else</p>
-                                                </div>
-                                            )}
-                                       
+
+                                        {!loading && products?.length === 0 && (
+                                            <div className="text-center p-5">
+
+                                                <img className="img-fluid w-50" src={require('../assets/images/error.png')} alt="error" />
+
+                                                <h3 className="mt-3">Sorry, No Results Found!</h3>
+                                                <p className="text-xl text-center text-primary-grey">Please check the spelling or try searching for something else</p>
+                                            </div>
+                                        )}
+
 
                                         <div className="row">
                                             <div className="col-lg-12">
@@ -246,7 +251,7 @@ const Products = () => {
                                             </div>
                                         )}
                                     </div>
-                                    </div>
+                                </div>
                             </>)
                         }
                     </div>

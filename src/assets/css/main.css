@@ -7256,6 +7256,22 @@ tbody tr td:last-child {
     background: #555;
   }
 
-  .MuiRadio-colorSecondary.Mui-checked {
+  .MuiRadio-colorSecondary.Mui-checked  , .MuiSlider-root{
     color: var(--primary) !important;
   }
+
+
+  .product-details-frame table{
+border: 1px solid#ccc;
+width: 100%;
+  }
+
+  .product-details-frame table tr td , .product-details-frame table tr th{
+    vertical-align: middle;
+    padding: 8px;
+    border-left: 1px solid#ccc;
+      }
+
+      .ck-editor__editable {
+        min-height: 200px;
+      }

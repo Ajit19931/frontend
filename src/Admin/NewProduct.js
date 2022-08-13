@@ -31,6 +31,7 @@ const NewProduct = () => {
     const [price, setPrice] = useState();
     const [mrpPrice, setMrpPrice] = useState();
     const [description, setDescription] = useState("");
+    const [specification, setSpecification] = useState("");
     const [category, setCategory] = useState("");
     const [stock, setStock] = useState("");
     const [images, setImages] = useState([]);
@@ -38,11 +39,29 @@ const NewProduct = () => {
 
     useEffect(() => {
         if (error) {
-            toast.error(error);
+            toast.error(error , {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
             dispatch(clearErrors());
         }
         if (success) {
-            toast.success("Product Created successfully");
+            toast.success("Product Created successfully", {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
             navigate("/admin/dashboard");
             dispatch({ type: NEW_PRODUCT_RESET });
         }
@@ -53,11 +72,25 @@ const NewProduct = () => {
 
     const createProductSubmitHandler = (e) => {
         e.preventDefault();
+        if (images.length <= 0) {
+            toast.error("Add Product Images", {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            return;
+        }
         const myForm = new FormData();
 
         myForm.set("name", name);
         myForm.set("price", price);
         myForm.set("description", description);
+        myForm.set("specification", specification);
         myForm.set("stock", stock);
         myForm.set("mrpPrice", mrpPrice);
         myForm.set("category", category);
@@ -159,6 +192,7 @@ const NewProduct = () => {
                                         </div>
                                     </div> */}
                                     <div className='mb-3 col-md-12'>
+                                    <lable className="form-label">Description</lable>
                                         <CKEditor
                                             editor={ClassicEditor}
                                             data={description}
@@ -168,16 +202,20 @@ const NewProduct = () => {
                                                 // console.log({ event, editor, data });
                                                 setDescription(data) ;
                                             }}
+                                        />
 
-                                        // config={{
-                                        //     plugins: [Paragraph, Bold, Italic, Essentials],
-                                        //     toolbar: ['bold', 'italic']
-                                        // }}
-
-                                        // onReady={editor => {
-                                        //     // You can store the "editor" and use when it is needed.
-                                        //     console.log('Editor1 is ready to use!', editor);
-                                        // }}
+                                    </div>
+                                    <div className='mb-3 col-md-12'>
+                                        <lable className="form-label">Specification</lable>
+                                        <CKEditor
+                                            editor={ClassicEditor}
+                                            data={specification}
+                                          
+                                            onChange={(event, editor) => {
+                                                const data = editor.getData();
+                                                // console.log({ event, editor, data });
+                                                setSpecification(data) ;
+                                            }}
                                         />
 
                                     </div>

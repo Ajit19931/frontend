@@ -8,6 +8,7 @@ import { getOrderDetails, clearErrors } from '../../actions/orderActions';
 
 import Loader from "../../component/Loading";
 import { useParams, Link } from 'react-router-dom';
+import { formatDate } from "../../utils/functions";
 
 const OrderDetails = () => {
     const dispatch = useDispatch();
@@ -52,13 +53,28 @@ const OrderDetails = () => {
 
                                                         <ul className="order-track-list">
                                                             <li className="order-track-item active">
-                                                                <i className="icofont-check"></i><span>order recieved</span> </li>
+                                                                <i className="icofont-check"></i><span>order recieved 
+                                                                <div className="text-muted">{order && formatDate(order.createdAt)}</div>
+                                                                    </span> </li>
 
-                                                            <li className={order.orderStatus && order.orderStatus === "Processing" ? "order-track-item active" : order.orderStatus && order.orderStatus === "Shipped" ? "order-track-item active" : order.orderStatus && order.orderStatus === "Delivered" ? "order-track-item active" : "order-track-item"}> <i className={order.orderStatus && order.orderStatus === "Processing" ? "icofont-check" : order.orderStatus && order.orderStatus === "Shipped" ? "icofont-check" : order.orderStatus && order.orderStatus === "Delivered" ? "icofont-check" : "icofont-close"}></i><span>order processed</span></li>
+                                                            <li className={order.orderStatus && order.orderStatus === "Processing" ? "order-track-item active" : order.orderStatus && order.orderStatus === "Shipped" ? "order-track-item active" : order.orderStatus && order.orderStatus === "Delivered" ? "order-track-item active" : "order-track-item"}> <i className={order.orderStatus && order.orderStatus === "Processing" ? "icofont-check" : order.orderStatus && order.orderStatus === "Shipped" ? "icofont-check" : order.orderStatus && order.orderStatus === "Delivered" ? "icofont-check" : "icofont-close"}></i><span>order processed<div className="text-muted">
+                                                            {order.processAt !== "Invalid Date" && (
+                                                                <span>{order  && formatDate(order.processAt)}</span>
+                                                            )}
+                                                            </div>
+                                                                    </span></li>
 
-                                                            <li className={order.orderStatus && order.orderStatus === "Shipped" ? "order-track-item active" : order.orderStatus && order.orderStatus === "Delivered" ? "order-track-item active" : "order-track-item"}><i className={order.orderStatus && order.orderStatus === "Shipped" ? "icofont-check" : order.orderStatus && order.orderStatus === "Delivered" ? "icofont-check" : "icofont-close"}></i><span>order shipped</span></li>
+                                                            <li className={order.orderStatus && order.orderStatus === "Shipped" ? "order-track-item active" : order.orderStatus && order.orderStatus === "Delivered" ? "order-track-item active" : "order-track-item"}><i className={order.orderStatus && order.orderStatus === "Shipped" ? "icofont-check" : order.orderStatus && order.orderStatus === "Delivered" ? "icofont-check" : "icofont-close"}></i><span>order shipped
+                                                                
+                                                            {order && order.shippedAt !== "Invalid Date" ?
+                                                                
+                                                             (<div className="text-muted"> {formatDate(order.shippedAt)}</div>
+                                                            ) : (<div className="text-muted"></div>)}
+                                                                
+                                                                    </span></li>
 
-                                                            <li className={order.orderStatus && order.orderStatus === "Delivered" ? "order-track-item active" : "order-track-item"}> <i className={order.orderStatus && order.orderStatus === "Delivered" ? "icofont-check" : "icofont-close"}></i><span>order delivered</span></li>
+                                                            <li className={order.orderStatus && order.orderStatus === "Delivered" ? "order-track-item active" : "order-track-item"}> <i className={order.orderStatus && order.orderStatus === "Delivered" ? "icofont-check" : "icofont-close"}></i><span>order delivered<div className="text-muted">{order && formatDate(order.deliveredAt)}</div>
+                                                                    </span></li>
                                                         </ul>
 
                                                     </div>
@@ -75,11 +91,11 @@ const OrderDetails = () => {
                                                         </li> */}
                                                         <li>
                                                             <h6>Order Time</h6>
-                                                            <p>{String(order.createdAt).substr(0, 10)} ,{String(order.createdAt).substr(11, 8)}</p>
+                                                            <p>{formatDate(order.createdAt)} </p>
                                                         </li>
                                                         <li>
                                                             <h6>Delivery Time</h6>
-                                                            <p>{String(order.createdAt).substr(0, 10)} ,{String(order.createdAt).substr(11, 8)}</p>
+                                                            <p>{formatDate(order.createdAt)} </p>
                                                         </li>
                                                         <li>
                                                             <h6>Payment Method</h6>

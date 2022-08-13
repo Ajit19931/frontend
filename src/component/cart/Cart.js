@@ -15,7 +15,16 @@ const Cart = () => {
         const newQty = quantity + 1;
 
         if (stock <= quantity) {
-            return toast.error('stock is out of range');
+            return toast.error('stock is out of range' , {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
 
         }
         dispatch(addItemsToCart(id, newQty));
@@ -24,7 +33,16 @@ const Cart = () => {
         const newQty = quantity - 1;
 
         if (1 >= quantity) {
-            return toast.error('stock more than 1 quantity');
+            return toast.error('stock more than 1 quantity' , {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
 
         }
         dispatch(addItemsToCart(id, newQty));

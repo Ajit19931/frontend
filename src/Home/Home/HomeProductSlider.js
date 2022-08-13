@@ -102,7 +102,7 @@ const HomeProductSlider = ({ title }) => {
                         <span>{getDiscount(product.price, product.mrpPrice)} % off</span>
                       </div>
                       <button className={`${itemInWishlist ? "active" : " text-gray"} product-wish wish`} onClick={addToWishlistHandler}><i className="fas fa-heart "></i></button>
-                      <Link className="product-image" to={`/product/${product._id}`}><img src={product.images[0].url} alt="product" />
+                      <Link className="product-image" to={`/${product.slug}/${product._id}`}><img src={product.images[0].url} alt="product" />
                       </Link>
                       {/* <div className="product-widget">
               <Link title="Product Compare" to="/" className="fas fa-random"></Link>
@@ -118,7 +118,7 @@ const HomeProductSlider = ({ title }) => {
                         {/* <i className="active icofont-star"></i><i className="active icofont-star"></i><i className="active icofont-star"></i><i className="active icofont-star"></i><i className="icofont-star"></i> */}
                       </div>
 
-                      <h6 className="product-name"><Link to={`/product/${product._id}`}>{product.name}</Link></h6>
+                      <h6 className="product-name"><Link to={`/${product.slug}/${product._id}`}>{product.name}</Link></h6>
 
                       <h6 className="product-price">MRP : <del className="text-muted fw-normal ms-2"> ₹ {product.mrpPrice?.toLocaleString()}</del><span>{`₹ ${product.price?.toLocaleString()}`}
             </span></h6>

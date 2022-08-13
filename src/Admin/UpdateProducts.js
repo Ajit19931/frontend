@@ -8,6 +8,8 @@ import MetaData from '../component/MetaData.js';
 import AdminHeader from './AdminHeader';
 import AdminFooter from './AdminFooter';
 import { UPDATE_PRODUCT_RESET } from '../constants/productConstant';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const UpdateProducts = () => {
     const categories = [
@@ -30,6 +32,7 @@ const UpdateProducts = () => {
     const [price, setPrice] = useState();
     const [mrpPrice, setMrpPrice] = useState();
     const [description, setDescription] = useState("");
+    const [specification, setSpecification] = useState("");
     const [category, setCategory] = useState("");
     const [stock, setStock] = useState("");
     const [images, setImages] = useState([]);
@@ -42,6 +45,7 @@ const UpdateProducts = () => {
         }else{
             setName(product.name);
             setDescription(product.description);
+            setSpecification(product.specification);
             setPrice(product.price);
             setMrpPrice(product.mrpPrice);
             setStock(product.stock);
@@ -50,15 +54,42 @@ const UpdateProducts = () => {
         }
 
         if (error) {
-            toast.error(error);
+            toast.error(error , {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
             dispatch(clearErrors());
         }
         if (updateError) {
-            toast.error(updateError);
+            toast.error(updateError , {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
             dispatch(clearErrors());
         }
         if (isUpdated) {
-            toast.success("Product Updated successfully");
+            toast.success("Product Updated successfully" , {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
             navigate("/admin/productlist");
             dispatch({ type: UPDATE_PRODUCT_RESET });
         }
@@ -75,6 +106,7 @@ const UpdateProducts = () => {
         myForm.set("price", price);
         myForm.set("mrpPrice", mrpPrice);
         myForm.set("description", description);
+        myForm.set("specification", specification);
         myForm.set("stock", stock);
 
         myForm.set("category", category);
@@ -174,11 +206,39 @@ const UpdateProducts = () => {
                                             <img key={index} src={image} width="100" height="100" alt="product images" className='me-2 border' />
                                         ))}
                                     </div>
-                                    <div className="mb-3 col-md-12">
+                                    {/* <div className="mb-3 col-md-12">
                                         <div className="form-floating">
                                             <textarea className="form-control" placeholder="Leave a comment here" required value={description} cols="30" rows="2" onChange={(e) => setDescription(e.target.value)} style={{ height: "150px" }} ></textarea>
                                             <label>Description</label>
                                         </div>
+                                    </div> */}
+                                    <div className='mb-3 col-md-12'>
+                                    <lable className="form-label">Description</lable>
+                                        <CKEditor
+                                            editor={ClassicEditor}
+                                            data={description}
+                                            
+                                            onChange={(event, editor) => {
+                                                const data = editor.getData();
+                                               
+                                                setDescription(data) ;
+                                            }}
+                                        />
+
+                                    </div>
+                                    <div className='mb-3 col-md-12'>
+                                    <lable className="form-label">specification</lable>
+                                        <CKEditor
+                                            editor={ClassicEditor}
+                                            data={specification}
+                                          
+                                            onChange={(event, editor) => {
+                                                const data = editor.getData();
+                                                // console.log({ event, editor, data });
+                                                setSpecification(data) ;
+                                            }}
+                                        />
+
                                     </div>
                                     <div className="mb-3 col-md-4">
                                         <button type="submit" className="btn btn-sm btn-success" disabled={loading ? true : false}>Update Product</button>
