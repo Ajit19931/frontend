@@ -153,10 +153,11 @@ const Header = () => {
 
             <div className="header-widget-group">
 
-              {/* <Link to="/" className="header-widget" title="Compare List">
-                <i className="fas fa-random"></i><sup>0</sup></Link> */}
-              <Link to="/wishlist" className="header-widget" title="Wishlist">
+              {user && <Link to="/wishlist" className="header-widget" title="Wishlist">
                 <i className="fas fa-heart"></i><sup> {wishlistItems.length}</sup></Link>
+                }
+              
+
               <button className="header-widget header-cart" title="Cartlist" onClick={ToggleClass1}>
                 <i className="fas fa-shopping-basket"></i><sup>{cartItems.length}</sup><span>total price<small>{`₹ ${cartItems.reduce((acc, item) => acc + item.quantity * item.price, 0)}`}</small>
                 </span>

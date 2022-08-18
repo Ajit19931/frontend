@@ -13,6 +13,7 @@ import { NEW_REVIEW_RESET } from '../constants/productConstant';
 import ProSlider from './ProSlider';
 import { getDiscount, getDeliveryDate } from '../utils/functions';
 import { addToWishlist, removeFromWishlist } from '../actions/wishlistAction';
+import HomeProductSlider from '../Home/Home/HomeProductSlider';
 
 
 
@@ -107,9 +108,8 @@ const ProductDetails = () => {
     }
 
     const reviewSubmitHandler = () => {
-
-        if (!comment) {
-            toast.error("Please enter a review comment ", {
+        if (rating === 0 || !comment.trim()) {
+            toast.error("Please enter a review comment", {
                 position: "bottom-center",
                 autoClose: 3000,
                 hideProgressBar: true,
@@ -121,6 +121,7 @@ const ProductDetails = () => {
             });
             return;
         }
+      
 
         const myForm = new FormData();
         myForm.set("rating", rating);
@@ -377,6 +378,8 @@ const ProductDetails = () => {
                             </div>
                         </div>
                     </section>
+
+                    <HomeProductSlider title={"Suggested for You"} />
                 </>
                 )}
         </>

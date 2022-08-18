@@ -62,7 +62,7 @@ const ProductCard = ({ product }) => {
               <label className=" new">{getDiscount(product.price, product.mrpPrice)}% off</label>
             </div>
             <button onClick={addToWishlistHandler} className={`${itemInWishlist ? "active" : ""} product-wish wish`} ><i className="fas fa-heart"></i></button>
-            <Link className="product-image deal-slider" to={`/${product.slug}/${product._id}`}><img src={product.images[0].url} alt={product.name} />
+            <Link className="product-image deal-slider" to={`/p/${product.slug}/${product._id}`}><img src={product.images[0].url} alt={product.name} />
             </Link>
             {/* <div className="product-widget">
               <Link title="Product Compare" to="/" className="fas fa-random"></Link>
@@ -72,11 +72,11 @@ const ProductCard = ({ product }) => {
           </div>
           <div className="product-content">
             <div className="product-rating">
-              <Rating {...options} /><Link to={`/${product.slug}/${product._id}`}>({product.numOfReviews} Reviews)</Link>
+              <Rating {...options} /><Link to={`/p/${product.slug}/${product._id}`}>({product.numOfReviews} Reviews)</Link>
               {/* <i className="active icofont-star"></i><i className="active icofont-star"></i><i className="active icofont-star"></i><i className="active icofont-star"></i><i className="icofont-star"></i> */}
             </div>
 
-            <h6 className="product-name"><Link to={`/${product.slug}/${product._id}`}>{product.name}</Link></h6>
+            <h6 className="product-name"><Link to={`/p/${product.slug}/${product._id}`}>{product.name}</Link></h6>
 
             <h6 className="product-price">MRP : <del className="text-muted fw-normal ms-2"> ₹ {product.mrpPrice?.toLocaleString()}</del><span>{`₹ ${product.price?.toLocaleString()}`}
             </span></h6>

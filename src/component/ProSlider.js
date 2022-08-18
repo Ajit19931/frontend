@@ -2,40 +2,25 @@ import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Thumbs } from "swiper";
 import "swiper/css";
-import ReactImageMagnify from 'react-image-magnify';
+// import ReactImageMagnify from 'react-image-magnify';
 import "../../src/assets/css/privacy.css"
 
 
 const ProSlider = ({ product }) => {
 
-    const rows = [];
+    // const rows = [];
   
-    product.images && product.images.forEach((item) => {
-      rows.push({
+    // product.images && product.images.forEach((item) => {
+    //   rows.push({
       
-        image: item.url,
+    //     image: item.url,
   
-      });
-    });
+    //   });
+    // });
 
-    const [img, setImg] = useState(rows[0]);
+    // const [img, setImg] = useState(rows[0]);
 
-    // const hoverHandler = (image, i) => {
-    //     setImg(image);
-    //     refs.current[i].classList.add('active');
-    //     for (var j = 0; j < product.images.length; j++) {
-    //         if (i !== j) {
-    //             refs.current[j].classList.remove('active');
-    //         }
-    //     }
-    // };
-    // const refs = useRef([]);
-    // refs.current = [];
-    // const addRefs = (el) => {
-    //     if (el && !refs.current.includes(el)) {
-    //         refs.current.push(el);
-    //     }
-    // };
+    
 
     const [activeThumb, setActiveThumb] = useState("")
 
@@ -82,7 +67,7 @@ const ProSlider = ({ product }) => {
                     ))}
                 </Swiper>
             </div>
-            <div className="left d-none">
+            {/* <div className="left d-none">
                 <div className="left_1">
                     {product.images && product.images.map((image, index) => (
                         <div
@@ -96,7 +81,7 @@ const ProSlider = ({ product }) => {
                         </div>
                     ))}
                 </div>
-                {/* <img src={product.images[0].url} alt="" /> */}
+               
 
                 <div className="left_2">
                     <ReactImageMagnify
@@ -121,7 +106,7 @@ const ProSlider = ({ product }) => {
                         }}
                     />
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }

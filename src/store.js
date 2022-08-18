@@ -34,6 +34,7 @@ const reducer = combineReducers({
     newSlider: newSliderReducer,
     delupSlider :delupSliderReducer,
     allcategories: allCategoriesReducer,
+    // category : categoryReducer,
     wishlist: wishlistReducer,
 
 });

@@ -17,6 +17,7 @@ import ResetPassword from "./Auth/ResetPassword";
 import Error from "./component/Error";
 import ProductDetails from "./component/ProductDetails";
 import Products from "./Product/Products";
+import CatProducts from "./Product/CatProducts";
 import store from "./store";
 import { loadUser } from "./actions/userAction";
 import Profile from "./component/user/Profile";
@@ -118,8 +119,9 @@ function App() {
         <Route path="/password/reset/:token" element={<ResetPassword />} />
 
         <Route exact path="/" element={<Home />} />
-        <Route path="/:productSlug/:id" element={<ProductDetails />} />
+        <Route path="/p/:productSlug/:id" element={<ProductDetails />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/c/:slug" element={<CatProducts />} />
         <Route path="/products/:keyword" element={<Products />} />
         <Route path="/cart" element={<Cart />} />
         

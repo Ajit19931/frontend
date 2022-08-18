@@ -1,71 +1,74 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import ProductCard from '../Home/Home/ProductCard';
 import MetaData from '../component/MetaData.js';
-import { getProduct, clearErrors } from "../actions/productActions";
-import { useSelector, useDispatch } from "react-redux";
+import { getProductsByslug, clearErrors } from "../actions/productActions";
+import {useSelector,  useDispatch } from "react-redux";
 import Loader from "../component/Loading";
 import { toast } from 'react-toastify';
-import { Link, useParams ,useLocation } from 'react-router-dom';
-import Pagination from "react-js-pagination";
-//import ReactStars from "react-rating-stars-component";
-import Slider from "@material-ui/core/Slider";
+import { Link, useParams  } from 'react-router-dom';
+// import Pagination from "react-js-pagination";
+// //import ReactStars from "react-rating-stars-component";
+// import Slider from "@material-ui/core/Slider";
 
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import Radio from '@material-ui/core/Radio';
+// import RadioGroup from '@material-ui/core/RadioGroup';
+// import FormControl from '@material-ui/core/FormControl';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-const categories = [
-    "TV",
-    "Footwear",
-    "Bottom",
-    "Tops",
-    "Attire",
-    "Camera",
-    "SmartPhones",
-];
+// const categories = [
+//     "TV",
+//     "Footwear",
+//     "Bottom",
+//     "Tops",
+//     "Attire",
+//     "Camera",
+//     "SmartPhones",
+// ];
 
-const Products = () => {
+
+const CatProducts = () => {
 
     const dispatch = useDispatch();
-    const params = useParams();
-    const location = useLocation();
-    const [currentPage, SetCurrentPage] = useState(1);
-    const [price, setPrice] = useState([0, 25000]);
-    const [category, setCategory] = useState(location.search ? location.search.split("=")[1] : "");
-    const [ratings, setRatings] = useState(0);
+    const {slug} = useParams();
+    // const location = useLocation();
+    // const [currentPage, SetCurrentPage] = useState(1);
+    // const [price, setPrice] = useState([0, 25000]);
+    // const [category, setCategory] = useState(location.search ? location.search.split("=")[1] : "");
+    // const [ratings, setRatings] = useState(0);
 
     // // filter toggles
     // const [categoryToggle, setCategoryToggle] = useState(true);
-    const [ratingsToggle, setRatingsToggle] = useState(true);
+    // const [ratingsToggle, setRatingsToggle] = useState(true);
 
-    const { loading, error, products, productsCount, resultPerPage, filteredProductsCount } = useSelector((state) => state.products);
+
+    const { loading, error, products } = useSelector((state) => state.products);
    
-    const keyword = params.keyword;
+    // const keyword = params.keyword;
+    
 
-    const SetCurrentPageNo = (e) => {
-        SetCurrentPage(e);
-    }
+    // const SetCurrentPageNo = (e) => {
+    //     SetCurrentPage(e);
+    // }
 
-    const priceHandler = (event, newPrice) => {
-        setPrice(newPrice);
-    };
+    // const priceHandler = (event, newPrice) => {
+    //     setPrice(newPrice);
+    // };
 
-    const clearFilters = () => {
-        setPrice([0, 25000]);
-        setCategory("");
-        setRatings(0);
-    }
-
+    // const clearFilters = () => {
+    //     setPrice([0, 25000]);
+    //     setCategory("");
+    //     setRatings(0);
+    // }
     useEffect(() => {
         if (error) {
             toast.error(error);
             dispatch(clearErrors());
         }
-        dispatch(getProduct(keyword, currentPage, price, category, ratings));
-    }, [dispatch, error, keyword, currentPage, price, category, ratings]);
+       
+        dispatch(getProductsByslug(slug));
+    }, [dispatch , error,slug ]);
 
-    let count = filteredProductsCount;
+    // let count = filteredProductsCount;
     return (
         <>
 
@@ -75,7 +78,7 @@ const Products = () => {
                     <div className="row content-reverse">
                         <div className="col-lg-3">
                             <div className="bg-white box-shadow-sm rounded">
-                            <div className="d-flex align-items-center justify-between gap-5 px-4 py-2 border-b">
+                           {/*  <div className="d-flex align-items-center justify-between gap-5 px-4 py-2 border-b">
                                 <p className="text-lg font-medium">Filters</p>
                                 <span className="text-uppercase text-primary-blue text-xs cursor-pointer font-medium" onClick={() => clearFilters()}>clear all</span>
                             </div>
@@ -128,19 +131,7 @@ const Products = () => {
                                     
                                 </div>
 
-                                {/* <div className="shop-widget">
-                                    <h6 className="shop-widget-title">Filter by Brand</h6>
-                                    <form>
-                                        <ul className="shop-widget-list shop-widget-scroll">
-                                            <li>
-                                                <div className="shop-widget-content"><input type="checkbox" id="brand1" /><label
-                                                    htmlFor="brand1">mari gold</label></div><span
-                                                        className="shop-widget-number">(13)</span>
-                                            </li>
-
-                                        </ul>
-                                    </form>
-                                </div> */}
+                                
                                 <div className="accordion" id="accordionExample">
                                     <div className="accordion-item">
                                         <h2 class="accordion-header" id="headingOne">
@@ -175,16 +166,16 @@ const Products = () => {
                                     </div>
 
 
-                                </div>
+                                </div>*/}
 
                             </div>
-                        </div>
+                        </div> 
                         {loading ? (<Loader />) :
                             (<>
                                 <div className="col-lg-9">
                                     <div className="bg-white box-shadow-sm rounded p-3">
 
-                                        {!loading && products?.length === 0 && (
+                                        {loading && products?.length === 0 && (
                                             <div className="text-center p-5">
 
                                                 <img className="img-fluid w-50" src={require('../assets/images/error.png')} alt="error" />
@@ -232,7 +223,7 @@ const Products = () => {
                                         </div>
 
 
-                                        {resultPerPage < count && (
+                                        {/* {resultPerPage < count && (
                                             <div className="row">
                                                 <div className="col-lg-12">
                                                     <div className="bottom-paginate">
@@ -254,7 +245,7 @@ const Products = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        )}
+                                        )} */}
                                     </div>
                                 </div>
                             </>)
@@ -268,4 +259,5 @@ const Products = () => {
     )
 }
 
-export default Products
+
+export default CatProducts

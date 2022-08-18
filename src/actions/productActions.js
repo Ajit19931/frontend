@@ -66,6 +66,45 @@ export const getProduct = (keyword = "", currentPage = "1", price = [0, 25000],c
 
 }
 
+// Get All Products Of Same Category
+export const getSimilarProducts = (category) => async (dispatch) => {
+    try {
+        dispatch({ type: ALL_PRODUCT_REQUEST });
+
+        const { data } = await axios.get(`/api/v1/products?category=${category}`);
+
+        dispatch({
+            type: ALL_PRODUCT_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: ALL_PRODUCT_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
+
+
+// Get All Products Of Same Category
+export const getProductsByslug = (slug) => async (dispatch) => {
+    try {
+        dispatch({ type: ALL_PRODUCT_REQUEST });
+
+        const { data } = await axios.get(`/api/v1/products/${slug}`);
+        
+        dispatch({
+            type: ALL_PRODUCT_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: ALL_PRODUCT_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
+
 // Get All Products ---PRODUCT SLIDER
 export const getSliderProducts = () => async (dispatch) => {
     try {
