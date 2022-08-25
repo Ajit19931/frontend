@@ -65,6 +65,7 @@ const Profile = () => {
 
     const { user, loading } = useSelector((state) => state.user);
     const { error, isUpdated } = useSelector((state) => state.profile);
+    
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
 

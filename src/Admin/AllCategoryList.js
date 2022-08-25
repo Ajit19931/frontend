@@ -125,8 +125,8 @@ const AllCategoryList = () => {
 
                                 <div className="col-sm-12 col-xl-12">
                                     <div className="bg-white shadow-sm rounded h-100 p-4">
-<ul>
- {categoryList && categoryList.map((item, index) => {
+                                        <ul>
+                                            {categoryList && categoryList.map((item, index) => {
                                                 return (
                                                     <div key={index}>
                                                         <h6 >{item.name}</h6>

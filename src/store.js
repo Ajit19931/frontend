@@ -7,7 +7,7 @@ import { allUsersReducer, forgotPasswordReducer, profileReducer, userDetailsRedu
 import { cartReducer } from "./reducers/cartReducers";
 import { myOrdersReducer, newOrderReducer, orderDetailsReducer, allOdersReducer, OrderReducer } from "./reducers/orderReducers";
 import { delupSliderReducer, newSliderReducer, sliderReducer } from "./reducers/homeSliderReducers";
-import { allCategoriesReducer } from "./reducers/categoryReducers";
+import { allCategoriesReducer, allmainCategoriesReducer, childSubCategoryDetailsReducer, ChildSubCategoryReducer, getChildSubcateReducer, getSubcateReducer, mainCategoryDetailsReducer, MainCategoryReducer, newChildSubcateReducer, newSubcateReducer, subCategoryDetailsReducer, SubCategoryReducer } from "./reducers/categoryReducers";
 
 import { wishlistReducer } from './reducers/wishlistReducer';
 
@@ -34,8 +34,21 @@ const reducer = combineReducers({
     newSlider: newSliderReducer,
     delupSlider :delupSliderReducer,
     allcategories: allCategoriesReducer,
+    allMainCategories: allmainCategoriesReducer,
+    mainCategoryDetails:mainCategoryDetailsReducer,
     // category : categoryReducer,
     wishlist: wishlistReducer,
+    MainCategory:MainCategoryReducer,
+
+    newSubcate:newSubcateReducer,
+    getSubcate: getSubcateReducer,
+    SubCategory: SubCategoryReducer,
+    subCategoryDetails: subCategoryDetailsReducer,
+    
+    newchildSubcate:newChildSubcateReducer,
+    getChildSubcate: getChildSubcateReducer,
+    ChildSubCategory: ChildSubCategoryReducer,
+    childsubCategoryDetails: childSubCategoryDetailsReducer
 
 });
 

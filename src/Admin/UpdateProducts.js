@@ -211,9 +211,15 @@ const UpdateProducts = () => {
                                             <textarea className="form-control" placeholder="Leave a comment here" required value={description} cols="30" rows="2" onChange={(e) => setDescription(e.target.value)} style={{ height: "150px" }} ></textarea>
                                             <label>Description</label>
                                         </div>
+                                    </div>
+                                    <div className="mb-3 col-md-12">
+                                        <div className="form-floating">
+                                            <textarea className="form-control" placeholder="Leave a comment here" required value={specification} cols="30" rows="2" onChange={(e) => setSpecification(e.target.value)} style={{ height: "150px" }} ></textarea>
+                                            <label>Description</label>
+                                        </div>
                                     </div> */}
                                     <div className='mb-3 col-md-12'>
-                                    <lable className="form-label">Description</lable>
+                                    <label className="form-label">Description</label>
                                         <CKEditor
                                             editor={ClassicEditor}
                                             data={description}
@@ -227,7 +233,7 @@ const UpdateProducts = () => {
 
                                     </div>
                                     <div className='mb-3 col-md-12'>
-                                    <lable className="form-label">specification</lable>
+                                    <label className="form-label">specification</label>
                                         <CKEditor
                                             editor={ClassicEditor}
                                             data={specification}

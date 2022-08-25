@@ -54,6 +54,11 @@ import UpdateSliderss from "./Admin/UpdateSliderss";
 import CategoryList from "./Admin/AllCategoryList";
 import NewCategory from "./Admin/NewCategory";
 import WishList from "./component/WishList/WishList";
+import UpdateMaincategory from "./Admin/AllCategory/UpdateMaincategory";
+import NewSubCategory from "./Admin/AllCategory/NewSubCategory";
+import UpdateSubcategory from "./Admin/AllCategory/UpdateSubcategory";
+import NewSubChildCategory from "./Admin/AllCategory/NewSubChildCategory";
+import UpdateSubChildCategory from "./Admin/AllCategory/UpdateSubChildCategory";
 
 function App() {
 
@@ -158,10 +163,13 @@ function App() {
           <Route exact path='/admin/updateslider/:id' element={<UpdateSliderss />} />
 
           <Route exact path='/admin/categorieslist' element={<CategoryList />} />
-          <Route exact path='/admin/newcategory' element={<NewCategory />} />
+          <Route exact path='/admin/newcategory' element={<NewCategory />} /> 
+          <Route exact path='/admin/updatemaincate/:id' element={<UpdateMaincategory />} />
+          <Route exact path='/admin/subcategory/' element={<NewSubCategory />} />
+          <Route exact path='/admin/updatesubcategory/:id' element={<UpdateSubcategory />} />
+          <Route exact path='/admin/childsubcategory/' element={<NewSubChildCategory />} />
+          <Route exact path='/admin/updatechildsubcategory/:id' element={<UpdateSubChildCategory />} />
           
-         
-         
         </Route>
 
         {/* {

@@ -30,12 +30,12 @@ const ProductList = () => {
         }
         if (isDeleted) {
             toast.success("Product delete successfully ");
-            dispatch({type: DELETE_PRODUCT_RESET});
+            dispatch({ type: DELETE_PRODUCT_RESET });
         }
 
         dispatch(getAdminProduct());
 
-    }, [dispatch, error , isDeleted, deleteError]);
+    }, [dispatch, error, isDeleted, deleteError]);
 
     const Columns = [
         { field: "id", headerName: "Product ID", minWidth: 100, flex: 0.3 },
@@ -84,7 +84,8 @@ const ProductList = () => {
                             <DataGrid
                                 rows={rows}
                                 columns={Columns}
-                                pageSize={7}
+                                pageSize={5}
+                                // rowsPerPageOptions={[5]}
                                 autoHeight
                                 disableSelectionOnClick
 

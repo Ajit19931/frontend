@@ -52,7 +52,9 @@ const AdminSidebar = () => {
             <div className="nav-item dropdown">
               <Link to="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i className="fa fa-th me-2"></i>Category</Link>
               <div className="dropdown-menu bg-transparent border-0">
-                <Link to="/admin/newcategory" className="dropdown-item">Add Category</Link>
+                <Link to="/admin/newcategory" className="dropdown-item">Main Category</Link>
+                <Link to="/admin/subcategory" className="dropdown-item">Sub Category</Link>
+                <Link to="/admin/childsubcategory" className="dropdown-item">child Sub Category</Link>
                 <Link to="/admin/categorieslist" className="dropdown-item">All Category</Link>
 
               </div>
