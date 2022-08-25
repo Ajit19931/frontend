@@ -159,7 +159,7 @@ const NewSubChildCategory = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/admin/updatesubcategory/${params.getValue(params.id, "id")}`} className="me-4"><i class="fas fa-pen"></i></Link>
+            <Link to={`/admin/updatechildsubcat/${params.getValue(params.id, "id")}`} className="me-4"><i class="fas fa-pen"></i></Link>
 
             <button onClick={() => deleteSubCateHandler(params.getValue(params.id, "id"))}><i class="fas fa-trash"></i></button>
 

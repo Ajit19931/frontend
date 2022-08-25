@@ -441,7 +441,7 @@ export const getchildSubCategoryDetails = (id) => async (dispatch) => {
         
         dispatch({
             type: CHILDSUBCATEGORIES_DETAILS_SUCCESS,
-            payload: data.subCategory,
+            payload: data.childSubCategory,
         })
 
     } catch (error) {

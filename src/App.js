@@ -168,7 +168,7 @@ function App() {
           <Route exact path='/admin/subcategory/' element={<NewSubCategory />} />
           <Route exact path='/admin/updatesubcategory/:id' element={<UpdateSubcategory />} />
           <Route exact path='/admin/childsubcategory/' element={<NewSubChildCategory />} />
-          <Route exact path='/admin/updatechildsubcategory/:id' element={<UpdateSubChildCategory />} />
+          <Route exact path='/admin/updatechildsubcat/:id' element={<UpdateSubChildCategory />} />
           
         </Route>
 

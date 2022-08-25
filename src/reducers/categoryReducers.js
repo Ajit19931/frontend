@@ -589,7 +589,7 @@ export const ChildSubCategoryReducer = (state = {}, action) => {
 }
 
 
-export const childSubCategoryDetailsReducer = (state = { subCategory: {} }, action) => {
+export const childSubCategoryDetailsReducer = (state = { childSubCategory: {} }, action) => {
     switch (action.type) {
         case CHILDSUBCATEGORIES_DETAILS_REQUEST:
             return {
@@ -600,7 +600,7 @@ export const childSubCategoryDetailsReducer = (state = { subCategory: {} }, acti
         case CHILDSUBCATEGORIES_DETAILS_SUCCESS:
             return {
                 loading: false,
-                subCategory: action.payload,
+                childSubCategory: action.payload,
             };
 
         case CHILDSUBCATEGORIES_DETAILS_FAIL:
