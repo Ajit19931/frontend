@@ -223,10 +223,10 @@ const ProductDetails = () => {
                                 <div className="col-lg-6">
 
                                     <div className="details-content">
-                                        <h3 className="details-name"><Link to="/">{product.name}</Link></h3>
-                                        <div className="details-meta">
+                                        <h3 className="details-name">{product.name}</h3>
+                                        <div className="details-meta">  
                                             <p>SKU:<span>1234567</span></p>
-                                            <p>BRAND:<Link to="/">radhuni</Link></p>
+                                            {/* <p>BRAND:<Link to="/">{product.brand.brandName}</Link></p> */}
                                         </div>
                                         <div className="details-rating">
                                             <Rating {...options} />

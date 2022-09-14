@@ -10,6 +10,7 @@ import { delupSliderReducer, newSliderReducer, sliderReducer } from "./reducers/
 import { allCategoriesReducer, allmainCategoriesReducer, childSubCategoryDetailsReducer, ChildSubCategoryReducer, getChildSubcateReducer, getSubcateReducer, mainCategoryDetailsReducer, MainCategoryReducer, newChildSubcateReducer, newSubcateReducer, subCategoryDetailsReducer, SubCategoryReducer } from "./reducers/categoryReducers";
 
 import { wishlistReducer } from './reducers/wishlistReducer';
+import { BrandDetailsReducer, brandReducer, getBrandsReducer, newBrandReducer } from "./reducers/brandReducers";
 
 const reducer = combineReducers({
     products: productsReducer,
@@ -48,7 +49,12 @@ const reducer = combineReducers({
     newchildSubcate:newChildSubcateReducer,
     getChildSubcate: getChildSubcateReducer,
     ChildSubCategory: ChildSubCategoryReducer,
-    childsubCategoryDetails: childSubCategoryDetailsReducer
+    childsubCategoryDetails: childSubCategoryDetailsReducer,
+
+    newbrand:newBrandReducer,
+    getbrand: getBrandsReducer,
+    brand: brandReducer,
+    brandDetails: BrandDetailsReducer,
 
 });
 

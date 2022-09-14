@@ -40,6 +40,7 @@ const AdminSidebar = () => {
               </div>
             </div>
             <Link to="/admin/userlist" className="nav-item nav-link "><i className="fas fa-user me-2"></i>User</Link>
+            <Link to="/admin/brands" className="nav-item nav-link "><i className="fas fa-user me-2"></i>Brand</Link>
 
             <div className="nav-item dropdown">
               <Link to="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i className="fa fa-laptop me-2"></i>Products</Link>
@@ -49,6 +50,7 @@ const AdminSidebar = () => {
 
               </div>
             </div>
+           
             <div className="nav-item dropdown">
               <Link to="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i className="fa fa-th me-2"></i>Category</Link>
               <div className="dropdown-menu bg-transparent border-0">

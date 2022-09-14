@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { DataGrid } from "@material-ui/data-grid";
 import { useSelector, useDispatch } from 'react-redux';
-import { clearErrors, deleteChildSubCategory,getAdminChildSubCategory, getAdminSubCategory, newchildSubCategory } from '../../actions/categoryActions';
+import { clearErrors, deleteBrand,getAdminBrand,  newBrand } from '../../actions/brandActions';
 import { toast } from 'react-toastify';
 import MetaData from '../../component/MetaData.js';
 import AdminHeader from '../AdminHeader';
@@ -14,7 +14,7 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import { DELETE_CHILDSUBCATEGORIES_RESET, NEW_CHILDSUBCATEGORIES_RESET } from '../../constants/categoryConstant';
+import { DELETE_BRAND_RESET, NEW_BRAND_RESET } from '../../constants/brandConstant';
 import { Link } from 'react-router-dom';
 import Loader from '../../component/Loading';
 
@@ -52,39 +52,34 @@ const DialogContent = withStyles((theme) => ({
 }))(MuiDialogContent);
 
 
-const NewSubChildCategory = () => {
+const NewBrand = () => {
 
   const [open, setOpen] = useState(false);
 
-
-
   const handleClickOpen = () => {
-    setChildSubCategoryName("");
-    setSubCategoryId("");
+    setBrandName("");
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
   };
   const dispatch = useDispatch();
-  const { loading, subCategorys } = useSelector((state) => state.getSubcate);
-  const { error, success } = useSelector((state) => state.newchildSubcate);
-  const { childsubCategorys } = useSelector((state) => state.getChildSubcate);
+  const { loading, brands } = useSelector((state) => state.getbrand);
+  const { error, success } = useSelector((state) => state.newbrand);
 
-  const { error: deleteError, isDeleted } = useSelector((state) => state.ChildSubCategory);
+  const { error: deleteError, isDeleted } = useSelector((state) => state.brand);
 
-  const [childSubCategoryName, setChildSubCategoryName] = useState("");
-  const [subCategoryId, setSubCategoryId] = useState();
+  const [brandName, setBrandName] = useState("");
+  // const [categoryId, setCategoryId] = useState();
 
 
-  const deleteSubCateHandler = (id) => {
+  const deleteBrandHandler = (id) => {
     const confirm = window.confirm("Are you sure, you want to delete this row", id)
     if (confirm) {
-      dispatch(deleteChildSubCategory(id));
+      dispatch(deleteBrand(id));
     }
 
   }
-
 
 
   useEffect(() => {
@@ -116,7 +111,7 @@ const NewSubChildCategory = () => {
         dispatch(clearErrors());
     }
     if (isDeleted) {
-        toast.success("child sub category delete successfully ", {
+        toast.success("brand delete successfully ", {
             position: "bottom-center",
             autoClose: 3000,
             hideProgressBar: true,
@@ -126,11 +121,11 @@ const NewSubChildCategory = () => {
             progress: undefined,
             theme: "dark",
         });
-        dispatch({ type: DELETE_CHILDSUBCATEGORIES_RESET  });
+        dispatch({ type: DELETE_BRAND_RESET });
     }
 
     if (success) {
-      toast.success("Category Created Successfully", {
+      toast.success("Brand Created Successfully", {
         position: "bottom-center",
         autoClose: 3000,
         hideProgressBar: true,
@@ -140,29 +135,27 @@ const NewSubChildCategory = () => {
         progress: undefined,
         theme: "dark",
       });
-      dispatch({ type: NEW_CHILDSUBCATEGORIES_RESET });
+      dispatch({ type: NEW_BRAND_RESET });
     }
-    dispatch(getAdminSubCategory());
-    dispatch(getAdminChildSubCategory());
+    dispatch(getAdminBrand());
 
   }, [dispatch, error, success,isDeleted , deleteError]);
 
 
   const Columns = [
-    { field: "id", headerName: "CategoryID", minWidth: 100, flex: 0.3 },
-    { field: "subCatName", headerName: "Sub Cat Name", minWidth: 150, flex: 0.5 },
-    { field: "name", headerName: "Name", minWidth: 150, flex: 0.5 },
+    { field: "id", headerName: "ID", minWidth: 100, flex: 0.3 },
+    { field: "name", headerName: "Name", minWidth: 200, flex: 0.7 },
 
-    { field: "updatedAt", headerName: "updatedAt", minWidth: 150, flex: 0.5 },
+    { field: "updatedAt", headerName: "updatedAt", minWidth: 100, flex: 0.3 },
 
     {
       field: "actions", headerName: "Actions", type: "Number", minWidth: 80, flex: 0.3, sortable: false,
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/admin/updatechildsubcat/${params.getValue(params.id, "id")}`} className="me-4"><i class="fas fa-pen"></i></Link>
+            <Link to={`/admin/updatebrand/${params.getValue(params.id, "id")}`} className="me-4"><i class="fas fa-pen"></i></Link>
 
-            <button onClick={() => deleteSubCateHandler(params.getValue(params.id, "id"))}><i class="fas fa-trash"></i></button>
+            <button onClick={() => deleteBrandHandler(params.getValue(params.id, "id"))}><i class="fas fa-trash"></i></button>
 
           </>
         )
@@ -172,11 +165,11 @@ const NewSubChildCategory = () => {
   ]
   const rows = [];
 
-  childsubCategorys && childsubCategorys.forEach((item) => {
+  brands && brands.forEach((item) => {
     rows.push({
       id: item._id,
-      subCatName: item.subCategoryId.subCategoryName,
-      name: item.childSubCategoryName,
+
+      name: item.brandName,
       updatedAt: formatDate(item.updatedAt),
 
     });
@@ -184,10 +177,10 @@ const NewSubChildCategory = () => {
 
 
 
-  const createCategorySubmit = (e) => {
+  const createBrandSubmit = (e) => {
     e.preventDefault();
-    if (!childSubCategoryName.trim()) {
-      toast.error("Please Enter Sub child Category Name", {
+    if (!brandName.trim()) {
+      toast.error("Please Enter Brand Name", {
         position: "bottom-center",
         autoClose: 3000,
         hideProgressBar: true,
@@ -201,9 +194,9 @@ const NewSubChildCategory = () => {
 
     }
     const myForm = new FormData();
-    myForm.set("childSubCategoryName", childSubCategoryName);
-    myForm.set("subCategoryId", subCategoryId);
-    dispatch(newchildSubCategory(myForm));
+    myForm.set("brandName", brandName);
+
+    dispatch(newBrand(myForm));
     handleClose();
 
   };
@@ -229,13 +222,13 @@ const NewSubChildCategory = () => {
     <>
      {loading ? (<Loader />) :
                 (<>
-      <MetaData tittle="Ecommerce | Admin child Sub category " />
+      <MetaData tittle="Ecommerce | Admin brands " />
       <div className="content">
         <AdminHeader />
         <div className="container-fluid pt-4 px-4">
           <div className="d-flex justify-content-between mb-3 align-content-center">
-            <h3 className="mb-2">All child Sub Category</h3>
-            <button className="btn-sm btn-success" onClick={handleClickOpen}>Add child Sub </button>
+            <h3 className="mb-2">All Brands</h3>
+            <button className="btn-sm btn-success" onClick={handleClickOpen}>Add brand</button>
           </div>
           <div className="row g-4">
             <div style={{ width: '100%' }}>
@@ -256,25 +249,16 @@ const NewSubChildCategory = () => {
 
       <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-         Create Child Sub Category
+          {/* {params.id ?"Update Main Category":"Create new Main Category"} */}Create Brands
         </DialogTitle>
         <DialogContent dividers>
           <form className="modal-form p-2 pme-3" encType="multipart/form-data"
-            onSubmit={createCategorySubmit}>
+            onSubmit={createBrandSubmit}>
+            
             <div className="form-group">
-              <label className="form-label">Sub Category Name</label>
-              <select className="form-control" value={subCategoryId} onChange={(e) => setSubCategoryId(e.target.value)} >
-                <option value="main">Select Sub cate</option>
-                {subCategorys && subCategorys.map((cate )=>(
-                  <option value={cate._id} >{cate.subCategoryName}</option>
-               ) )}
-              </select>
-                
-                </div>
-            <div className="form-group">
-              <label className="form-label">child Sub Category Name</label>
+              <label className="form-label">brand Name</label>
               <input className="form-control"
-                type="text" name="childSubCategoryName" value={childSubCategoryName} onChange={(e) => setChildSubCategoryName(e.target.value)} /></div>
+                type="text" name="brandName" value={brandName} onChange={(e) => setBrandName(e.target.value)} /></div>
             <button className="form-btn" type="submit" >Submit</button>
           </form>
         </DialogContent>
@@ -287,5 +271,4 @@ const NewSubChildCategory = () => {
   )
 }
 
-
-export default NewSubChildCategory
+export default NewBrand

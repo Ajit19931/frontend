@@ -8,6 +8,7 @@ import MetaData from '../component/MetaData.js';
 import AdminHeader from './AdminHeader';
 import AdminFooter from './AdminFooter';
 import { DELETE_PRODUCT_RESET } from '../constants/productConstant';
+import { formatDate } from '../utils/functions';
 
 const ProductList = () => {
     const dispatch = useDispatch();
@@ -29,7 +30,16 @@ const ProductList = () => {
             dispatch(clearErrors());
         }
         if (isDeleted) {
-            toast.success("Product delete successfully ");
+            toast.success("Product delete successfully ", {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+              });
             dispatch({ type: DELETE_PRODUCT_RESET });
         }
 
@@ -42,7 +52,7 @@ const ProductList = () => {
         { field: "name", headerName: "Name", minWidth: 200, flex: 0.7 },
         { field: "stock", headerName: "Stock", type: "Number", minWidth: 50, flex: 0.2, headerAlign: 'center', align: 'center', },
         { field: "price", headerName: "Price", type: "Number", minWidth: 80, flex: 0.3, headerAlign: 'center', align: 'center', },
-        { field: "createAt", headerName: "CreateAt", minWidth: 100, flex: 0.3 },
+        { field: "updatedAt", headerName: "updatedAt", minWidth: 100, flex: 0.3 },
 
         {
             field: "actions", headerName: "Actions", type: "Number", minWidth: 80, flex: 0.3, sortable: false,
@@ -67,7 +77,7 @@ const ProductList = () => {
             stock: item.stock,
             price: item.price,
             name: item.name,
-            createAt: String(item.createAt).substr(0, 10),
+            updatedAt: formatDate(item.updatedAt)
 
         });
     });

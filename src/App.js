@@ -59,6 +59,9 @@ import NewSubCategory from "./Admin/AllCategory/NewSubCategory";
 import UpdateSubcategory from "./Admin/AllCategory/UpdateSubcategory";
 import NewSubChildCategory from "./Admin/AllCategory/NewSubChildCategory";
 import UpdateSubChildCategory from "./Admin/AllCategory/UpdateSubChildCategory";
+import NewBrand from './Admin/Brand/NewBrand.js';
+import UpdateBrand from "./Admin/Brand/UpdateBrand.js";
+
 
 function App() {
 
@@ -170,6 +173,10 @@ function App() {
           <Route exact path='/admin/childsubcategory/' element={<NewSubChildCategory />} />
           <Route exact path='/admin/updatechildsubcat/:id' element={<UpdateSubChildCategory />} />
           
+          <Route exact path='/admin/brands/' element={<NewBrand/>} />
+          <Route exact path='/admin/updatebrand/:id' element={<UpdateBrand />} />
+         
+
         </Route>
 
         {/* {

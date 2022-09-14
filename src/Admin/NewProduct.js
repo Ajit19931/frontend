@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux';
 import { clearErrors, CreateProduct } from '../actions/productActions';
+import {  getAdminBrand } from '../actions/brandActions';
+import {  getAdminMainCategory,getAdminSubCategory ,getAdminChildSubCategory } from '../actions/categoryActions';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import MetaData from '../component/MetaData.js';
@@ -13,26 +15,33 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
 const NewProduct = () => {
-    const categories = [
-        "TV",
-        "Footwear",
-        "Bottom",
-        "Tops",
-        "Attire",
-        "Camera",
-        "SmartPhones",
-    ];
+    // const categories = [
+    //     "TV",
+    //     "Footwear",
+    //     "Bottom",
+    //     "Tops",
+    //     "Attire",
+    //     "Camera",
+    //     "SmartPhones",
+    // ];
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { loading, error, success } = useSelector((state) => state.newProduct);
+    const { brands } = useSelector((state) => state.getbrand);
+    const {  categoryList } = useSelector((state) => state.allMainCategories);
+    const { subCategorys } = useSelector((state) => state.getSubcate);
+  const { childsubCategorys } = useSelector((state) => state.getChildSubcate);
 
     const [name, setName] = useState();
     const [price, setPrice] = useState();
     const [mrpPrice, setMrpPrice] = useState();
     const [description, setDescription] = useState("");
     const [specification, setSpecification] = useState("");
-    const [category, setCategory] = useState("");
+    const [maincategory, setMainCategory] = useState("");
+    const [subcategory, setSubCategory] = useState("");
+    const [childsubcategory, setChildSubcategory] = useState("");
+    const [brand, setBrand] = useState("");
     const [stock, setStock] = useState("");
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
@@ -62,11 +71,14 @@ const NewProduct = () => {
                 progress: undefined,
                 theme: "dark",
             });
-            navigate("/admin/dashboard");
+            navigate("/admin/productlist");
             dispatch({ type: NEW_PRODUCT_RESET });
         }
 
-
+      dispatch(getAdminBrand());
+      dispatch(getAdminMainCategory());
+      dispatch(getAdminSubCategory());
+      dispatch(getAdminChildSubCategory());
 
     }, [dispatch, error, success, navigate]);
 
@@ -93,7 +105,10 @@ const NewProduct = () => {
         myForm.set("specification", specification);
         myForm.set("stock", stock);
         myForm.set("mrpPrice", mrpPrice);
-        myForm.set("category", category);
+        myForm.set("maincategory", maincategory);
+        myForm.set("subcategory", subcategory);
+        myForm.set("childsubcategory", childsubcategory);
+        myForm.set("brand", brand);
 
         images.forEach((image) => {
             myForm.append("images", image);
@@ -156,15 +171,55 @@ const NewProduct = () => {
                                     </div>
                                     <div className="mb-3 col-md-6">
                                         <div className="form-floating mb-3">
-                                            <select className="form-select" defaultValue="secate"
-                                                required value={category} onChange={(e) => setCategory(e.target.value)} aria-label="Floating label select example">
-                                                <option value="secate" disabled selected > -- select an option -- </option>
+                                            <select className="form-select" 
+                                                required value={maincategory} onChange={(e) => setMainCategory(e.target.value)} aria-label="Floating label select example">
+                                                <option value="" disabled  > -- select an option -- </option>
 
-                                                {categories.map((cate) => (
-                                                    <option key={cate} value={cate} >{cate}</option>
+                                                {categoryList && categoryList.map((cate) => (
+                                                    <option key={cate._id} value={cate._id} >{cate.categoryName}</option>
                                                 ))}
                                             </select>
-                                            <label >Category</label>
+                                            <label >Main Category</label>
+                                        </div>
+                                    </div>
+                                    <div className="mb-3 col-md-6">
+                                        <div className="form-floating mb-3">
+                                            <select className="form-select" 
+                                                required value={subcategory} onChange={(e) => setSubCategory(e.target.value)} aria-label="Floating label select example">
+                                                <option value="" disabled  > -- select an option -- </option>
+
+                                                {subCategorys && subCategorys.map((subcate) => (
+                                                    <option key={subcate._id} value={subcate._id} >{subcate.subCategoryName}</option>
+                                                ))}
+                                            </select>
+                                            <label >Sub Category</label>
+                                        </div>
+                                    </div>
+                                    <div className="mb-3 col-md-6">
+                                        <div className="form-floating mb-3">
+                                            <select className="form-select" 
+                                                required value={childsubcategory} onChange={(e) => setChildSubcategory(e.target.value)} aria-label="Floating label select example">
+                                                <option value="" disabled  > -- select an option -- </option>
+
+                                                {childsubCategorys && childsubCategorys.map((childcate) => (
+                                                    <option key={childcate._id} value={childcate._id} >{childcate.childSubCategoryName}</option>
+                                                ))}
+                                            </select>
+                                            <label >Child Sub Category</label>
+                                        </div>
+                                    </div>
+                                    <div className="mb-3 col-md-6">
+                                        <div className="form-floating mb-3">
+                                            <select className="form-select" 
+                                                required value={brand} onChange={(e) => setBrand(e.target.value)} aria-label="Floating label select example" >
+                                                <option value=""   disabled > -- select an option -- </option>
+
+                                                {brands && brands.map((bran) => (
+                                                    <option key={bran._id} value={bran._id} >{bran.brandName}</option>
+                                                ))}
+
+                                            </select>
+                                            <label >Brand</label>
                                         </div>
                                     </div>
                                     <div className="mb-3 col-md-6">
@@ -192,7 +247,7 @@ const NewProduct = () => {
                                         </div>
                                     </div> */}
                                     <div className='mb-3 col-md-12'>
-                                    <lable className="form-label">Description</lable>
+                                    <label className="form-label">Description</label>
                                         <CKEditor
                                             editor={ClassicEditor}
                                             data={description}
@@ -206,7 +261,7 @@ const NewProduct = () => {
 
                                     </div>
                                     <div className='mb-3 col-md-12'>
-                                        <lable className="form-label">Specification</lable>
+                                        <label className="form-label">Specification</label>
                                         <CKEditor
                                             editor={ClassicEditor}
                                             data={specification}

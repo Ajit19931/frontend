@@ -105,6 +105,43 @@ export const getProductsByslug = (slug) => async (dispatch) => {
     }
 };
 
+
+// export const getProductsByslugcat = (slug) => async (dispatch) => {
+//     try {
+//         dispatch({ type: ALL_PRODUCT_REQUEST });
+
+//         const { data } = await axios.get(`/api/v1/productscat/${slug}`);
+        
+//         dispatch({
+//             type: ALL_PRODUCT_SUCCESS,
+//             payload: data,
+//         });
+//     } catch (error) {
+//         dispatch({
+//             type: ALL_PRODUCT_FAIL,
+//             payload: error.response.data.message,
+//         });
+//     }
+// };
+
+// export const getProductsByslugchild = (slug) => async (dispatch) => {
+//     try {
+//         dispatch({ type: ALL_PRODUCT_REQUEST });
+
+//         const { data } = await axios.get(`/api/v1/productchild/${slug}`);
+        
+//         dispatch({
+//             type: ALL_PRODUCT_SUCCESS,
+//             payload: data,
+//         });
+//     } catch (error) {
+//         dispatch({
+//             type: ALL_PRODUCT_FAIL,
+//             payload: error.response.data.message,
+//         });
+//     }
+// };
+
 // Get All Products ---PRODUCT SLIDER
 export const getSliderProducts = () => async (dispatch) => {
     try {

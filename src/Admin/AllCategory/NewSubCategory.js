@@ -150,6 +150,7 @@ console.log(categoryList);
 
   const Columns = [
     { field: "id", headerName: "Main CategoryID", minWidth: 100, flex: 0.3 },
+    { field: "MainCatName", headerName: "Main Cat Name", minWidth: 200, flex: 0.7 },
     { field: "name", headerName: "Name", minWidth: 200, flex: 0.7 },
 
     { field: "updatedAt", headerName: "updatedAt", minWidth: 100, flex: 0.3 },
@@ -176,6 +177,7 @@ console.log(categoryList);
       id: item._id,
 
       name: item.subCategoryName,
+      MainCatName: item.categoryId.categoryName,
       updatedAt: formatDate(item.updatedAt),
 
     });

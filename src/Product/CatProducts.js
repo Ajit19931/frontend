@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import ProductCard from '../Home/Home/ProductCard';
 import MetaData from '../component/MetaData.js';
-import { getProductsByslug, clearErrors } from "../actions/productActions";
+import { getProductsByslug, clearErrors  } from "../actions/productActions";
 import {useSelector,  useDispatch } from "react-redux";
 import Loader from "../component/Loading";
 import { toast } from 'react-toastify';
@@ -66,6 +66,8 @@ const CatProducts = () => {
         }
        
         dispatch(getProductsByslug(slug));
+      //  dispatch(getProductsByslugcat(slug));
+      //  dispatch(getProductsByslugchild(slug));
     }, [dispatch , error,slug ]);
 
     // let count = filteredProductsCount;
